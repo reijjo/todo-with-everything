@@ -19,14 +19,14 @@
 
 ### Backend
 
-- `mkdir server` => `cd server` -> `bun init`
+- `mkdir server` -> `cd server` -> `bun init`
 - Install `express` -> `bun add express` -> `bun add -d @types/express @types/bun`
 - Add to servers `package.json` file:
 
 ```json
 "scripts": {
   "dev": "bun --watch run index.ts",
-	"clean": "rm -rf node_modules .bun bun.lockb dist"
+  "clean": "rm -rf node_modules .bun bun.lockb dist"
 },
 ```
 
