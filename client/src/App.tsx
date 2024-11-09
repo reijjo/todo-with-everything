@@ -1,4 +1,4 @@
-import { NotFound } from "./components/common/not-found/NotFound";
+import { NotFound } from "./components/not-found/NotFound";
 import { Homepage } from "./components/homepage/Homepage";
 import { Layout } from "./components/common/layout/Layout";
 import { Todo } from "./index";

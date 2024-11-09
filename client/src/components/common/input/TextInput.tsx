@@ -1,17 +1,22 @@
 import "./TextInput.css";
-import { ChangeEvent } from "react";
-import { Icon, IconProps } from "../icon/Icon";
+import { ChangeEvent, SyntheticEvent } from "react";
+import { IconProps } from "../icon/Icon";
+import { Label } from "./Label";
+import { InputIcon } from "./InputIcon";
+import { InputButton } from "./InputButton";
 
 interface TextInputProps {
-  labelText?: string;
   placeholder?: string;
   className?: string;
   value?: string;
   name: string;
   id: string;
+  labelText?: string;
   optional?: boolean;
   iconName?: IconProps["name"];
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  buttonText?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: SyntheticEvent) => void;
 }
 
 export const TextInput = ({
@@ -23,29 +28,29 @@ export const TextInput = ({
   id,
   optional,
   iconName,
+  buttonText,
   onChange,
+  onClick,
 }: TextInputProps) => {
   return (
     <div className={`text-input-wrapper ${className}`}>
-      <div className="todo-optional">
-        {labelText && <label htmlFor={id}>{labelText}</label>}
-        {optional && <p className="optional">(optional)</p>}
-      </div>
-      <div className="input-extra">
-        <input
-          placeholder={placeholder}
-          type="text"
-          value={value}
-          name={name}
-          id={id}
-          onChange={onChange}
-        />
-        {iconName && (
-          <span>
-            <Icon name={iconName} size={20} />{" "}
-          </span>
+      <div className="input-label">
+        {labelText && (
+          <Label labelText={labelText} id={id} optional={optional} />
         )}
+        <div className="input-extra">
+          <input
+            placeholder={placeholder}
+            type="text"
+            value={value}
+            name={name}
+            id={id}
+            onChange={onChange}
+          />
+          {iconName && <InputIcon iconName={iconName} />}
+        </div>
       </div>
+      {buttonText && <InputButton buttonText={buttonText} onClick={onClick} />}
     </div>
   );
 };

@@ -1,21 +1,63 @@
 import "./Homepage.css";
 import { TextInput } from "../common";
+import { TodoList } from "../Todo";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { TodoLists } from "../../utils/types";
 
 export const Homepage = () => {
+  const [newList, setNewList] = useState("");
+  const [todoList, setTodoList] = useState<TodoLists[]>([]);
+  const [activeList, setActiveList] = useState<TodoLists>();
+
+  const handleCreateNewList = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewList(e.target.value);
+  };
+
+  const createNewList = (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    setTodoList([
+      ...todoList,
+      { id: todoList.length + 1, title: newList, todos: [] },
+    ]);
+
+    setNewList("");
+
+    console.log("Create new list");
+  };
+
+  console.log("todoLists", todoList);
+
   return (
     <main className="wrapper">
-      <div className="todo-lists">
-        <h1>Todo lists!</h1>
-        <div className="input-with-button">
+      <div className="align-center">
+        <h1>To-do lists!</h1>
+        <div className="create-new-list">
           <TextInput
-            name="AddTodo"
-            id="AddTodo"
-            placeholder="haloo"
-            labelText="Add new todo"
-            className="input-width-xs"
+            name="newList"
+            id="newList"
+            placeholder="Create new list..."
+            labelText="List name"
+            // optional
+            className="input-width-l"
+            // iconName="plus"
+            buttonText="Create"
+            onChange={handleCreateNewList}
+            onClick={createNewList}
+            value={newList}
           />
-          <button>Add to do!</button>
         </div>
+
+        <ul className="todo-lists">
+          {todoList.map((list) => (
+            <a key={list.id} onClick={() => setActiveList(list)}>
+              <li>{list.title}</li>
+            </a>
+          ))}
+        </ul>
+        {todoList.length > 0 && activeList && (
+          <TodoList activeList={activeList} setActiveList={setActiveList} />
+        )}
       </div>
     </main>
   );

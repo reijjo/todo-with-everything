@@ -4,11 +4,13 @@
 
   display: flex;
   flex-direction: column;
+
+  background-image: url("../../../assets/images/crumbled-paper.jpg");
 }
 
 .content {
   display: flex;
   flex-grow: 1;
 
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 }
