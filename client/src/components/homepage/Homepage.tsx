@@ -1,13 +1,17 @@
 import "./Homepage.css";
 import { TextInput } from "../common";
 import { TodoList } from "../Todo";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { TodoLists } from "../../utils/types";
 
 export const Homepage = () => {
   const [newList, setNewList] = useState("");
   const [todoList, setTodoList] = useState<TodoLists[]>([]);
   const [activeList, setActiveList] = useState<TodoLists>();
+
+  useEffect(() => {
+    setActiveList(todoList.find((list) => list.id === todoList.length));
+  }, [todoList]);
 
   const handleCreateNewList = (e: ChangeEvent<HTMLInputElement>) => {
     setNewList(e.target.value);
@@ -22,11 +26,7 @@ export const Homepage = () => {
     ]);
 
     setNewList("");
-
-    console.log("Create new list");
   };
-
-  console.log("todoLists", todoList);
 
   return (
     <main className="wrapper">
