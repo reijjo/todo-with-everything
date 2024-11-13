@@ -1,10 +1,37 @@
 nav {
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  height: 8vh;
+  height: 10vh;
   width: 100%;
   /* background-color: var(--primary-50); */
 
   border-bottom: 1px solid white;
+}
+
+.nav-wrapper {
+  /* 12grids */
+  max-width: 1366px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+
+  display: flex;
+  flex-direction: row;
+  /* flex-grow: 1; */
+  width: 100%;
+
+  /* background-color: var(--primary-50); */
+
+  @media only screen and (max-width: 800px) {
+    /* 8 grids */
+    padding: 8px 16px;
+  }
+
+  @media only screen and (max-width: 461px) {
+    /* 4 grids */
+    padding: 4px 8px;
+  }
 }

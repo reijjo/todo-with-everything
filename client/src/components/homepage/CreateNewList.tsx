@@ -1,3 +1,4 @@
+import "./CreateNewList.css";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { TextInput } from "../common";
 import { TodoLists } from "../../utils/types";

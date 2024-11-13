@@ -3,6 +3,7 @@ import { TodoList } from "../Todo";
 import { useEffect, useState } from "react";
 import { TodoLists } from "../../utils/types";
 import { CreateNewList } from "./CreateNewList";
+import { Container } from "../common";
 
 export const Homepage = () => {
   const [todoList, setTodoList] = useState<TodoLists[]>([]);
@@ -17,7 +18,9 @@ export const Homepage = () => {
       <div className="align-center">
         <h1>To-do lists</h1>
         {todoList.length === 0 ? (
-          <CreateNewList todoList={todoList} setTodoList={setTodoList} />
+          <Container width="50%">
+            <CreateNewList todoList={todoList} setTodoList={setTodoList} />
+          </Container>
         ) : (
           <ul className="todo-lists">
             {todoList.map((list) => (

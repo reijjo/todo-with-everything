@@ -1,0 +1,4 @@
+.container-base-styles {
+  overflow: hidden;
+  box-shadow: var(--shadow-m);
+}

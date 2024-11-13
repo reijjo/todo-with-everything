@@ -2,7 +2,7 @@ import "./Divider.css";
 import { CSSProperties } from "react";
 
 type DividerProps = {
-  margin: number | CSSProperties; // Accept either a number or CSSProperties
+  margin: number | CSSProperties;
   hasText?: boolean;
 };
 

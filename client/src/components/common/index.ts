@@ -5,3 +5,5 @@ export { TextInput } from "./input/TextInput";
 export { Divider } from "./divider/Divider";
 export { VerticalDivider } from "./divider/VerticalDivider";
 export { IconButton } from "./button/IconButton";
+export { Button } from "./button/Button";
+export { Container } from "./container/Container";

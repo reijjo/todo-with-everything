@@ -1,0 +1,44 @@
+.modal-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 15dvh;
+
+  border: 1px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 50%;
+  width: 60%;
+  max-width: 80%;
+  margin: 15dvh auto 0;
+
+  color: var(--text-light);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  align-items: center;
+
+  background-color: var(--primary);
+
+  & button {
+    height: 24px;
+    width: 24px;
+    aspect-ratio: 1 / 1;
+    padding: 0; /* Ensures no extra spacing around the icon */
+    cursor: pointer;
+  }
+}

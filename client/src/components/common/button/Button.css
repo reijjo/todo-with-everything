@@ -1,0 +1,31 @@
+.btn {
+  border: none;
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: inherit;
+  color: var(--text);
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-filled {
+  background-color: var(--primary);
+  color: var(--text-light);
+
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  height: 2.5rem;
+
+  box-shadow: var(--shadow-m);
+
+  &:hover {
+    background-color: var(--primary-400);
+  }
+}
