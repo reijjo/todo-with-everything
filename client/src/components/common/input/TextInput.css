@@ -1,3 +1,9 @@
+.input-with-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .text-input-wrapper {
   display: inline-flex;
   align-items: flex-end;
@@ -89,6 +95,37 @@
     &:hover {
       cursor: pointer;
     }
+  }
+}
+
+.input-error input {
+  border: 1px solid var(--error-base);
+}
+
+.input-error-message {
+  border: 1px solid var(--error-base);
+  border-radius: 4px;
+  background-color: var(--error-xlight);
+  width: max-content;
+  max-width: 75%;
+  font-size: 0.875rem;
+  color: var(--error-dark);
+  white-space: normal;
+  overflow-wrap: break-word;
+
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+
+  margin-top: 4px;
+  padding: 4px 8px;
+}
+
+.input-error-message ul {
+  list-style-position: inside;
+
+  & li {
+    word-wrap: break-word;
   }
 }
 

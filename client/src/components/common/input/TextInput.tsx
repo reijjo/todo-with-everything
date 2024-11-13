@@ -15,6 +15,8 @@ interface TextInputProps {
   optional?: boolean;
   iconName?: IconProps["name"];
   buttonText?: string;
+  required?: boolean;
+  errorMessage?: string[];
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick: (e: SyntheticEvent) => void;
 }
@@ -29,28 +31,44 @@ export const TextInput = ({
   optional,
   iconName,
   buttonText,
+  required,
+  errorMessage = [],
   onChange,
   onClick,
 }: TextInputProps) => {
   return (
-    <div className={`text-input-wrapper ${className}`}>
-      <div className="input-label">
-        {labelText && (
-          <Label labelText={labelText} id={id} optional={optional} />
-        )}
-        <div className="input-extra">
-          <input
-            placeholder={placeholder}
-            type="text"
-            value={value}
-            name={name}
-            id={id}
-            onChange={onChange}
-          />
-          {iconName && <InputIcon iconName={iconName} />}
+    <div className="input-with-error">
+      <div className={`text-input-wrapper ${className}`}>
+        <div className="input-label">
+          {labelText && (
+            <Label labelText={labelText} id={id} optional={optional} />
+          )}
+          <div className="input-extra">
+            <input
+              placeholder={placeholder}
+              type="text"
+              value={value}
+              name={name}
+              id={id}
+              onChange={onChange}
+              required={required}
+            />
+            {iconName && <InputIcon iconName={iconName} />}
+          </div>
         </div>
+        {buttonText && (
+          <InputButton buttonText={buttonText} onClick={onClick} />
+        )}
       </div>
-      {buttonText && <InputButton buttonText={buttonText} onClick={onClick} />}
+      {errorMessage.length > 0 && (
+        <div className="input-error-message">
+          <ul>
+            {errorMessage.map((msg, idx) => (
+              <li key={idx}>{msg}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

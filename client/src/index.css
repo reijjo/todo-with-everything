@@ -43,6 +43,50 @@ a {
   color: inherit;
 }
 
+/* Headers */
+:is(h1, h2, h3, h4, h5, h6) {
+  text-transform: uppercase;
+}
+
+:is(h1, h2, h3) {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 900;
+
+  background: linear-gradient(
+    to right,
+    var(--primary),
+    var(--accent1),
+    var(--primary-600)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px var(--text-dark);
+  /* text-shadow: 0 2px 4px var(--accent1); */
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
 /* Colors */
 :root {
   --text-light: hsl(204, 19%, 97%);
