@@ -8,6 +8,9 @@ type ContainerProps = {
   borderColor?: string;
   borderRadius?: string;
   backgroundColor?: string;
+  boxShadow?: string;
+  display?: string;
+  justifyContent?: string;
 };
 
 export const Container = ({
@@ -17,10 +20,22 @@ export const Container = ({
   borderColor = "var(--primary)",
   borderRadius = "8px",
   backgroundColor = "transparent",
+  boxShadow = "var(--shadow-m)",
+  display,
+  justifyContent,
 }: ContainerProps) => (
   <div
     className="container-base-styles"
-    style={{ width, border, borderColor, borderRadius, backgroundColor }}
+    style={{
+      width,
+      border,
+      borderColor,
+      borderRadius,
+      backgroundColor,
+      boxShadow,
+      display,
+      justifyContent,
+    }}
   >
     {children}
   </div>

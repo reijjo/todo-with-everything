@@ -6,8 +6,13 @@
   height: 2.5rem;
   aspect-ratio: 1/1;
 
-  &:hover {
+  &:hover:is(:not(:disabled)) {
     cursor: pointer;
     background-color: var(--error-light);
+  }
+
+  &:disabled {
+    border-color: var(--primary200);
+    cursor: not-allowed;
   }
 }

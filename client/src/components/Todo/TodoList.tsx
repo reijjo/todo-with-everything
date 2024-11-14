@@ -1,6 +1,6 @@
 import "./TodoList.css";
 import { Todo } from "./Todo";
-import { TextInput } from "../common";
+import { Button, Container, TextInput } from "../common";
 import { TodoLists } from "../../utils/types";
 import {
   ChangeEvent,
@@ -13,9 +13,14 @@ import {
 type TodoListProps = {
   activeList: TodoLists;
   setActiveList: Dispatch<SetStateAction<TodoLists | undefined>>;
+  deleteList: (id: number) => void;
 };
 
-export const TodoList = ({ activeList, setActiveList }: TodoListProps) => {
+export const TodoList = ({
+  activeList,
+  setActiveList,
+  deleteList,
+}: TodoListProps) => {
   const [newTodo, setNewTodo] = useState("");
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +44,31 @@ export const TodoList = ({ activeList, setActiveList }: TodoListProps) => {
     setNewTodo("");
   };
 
+  const toggleTodoDone = (todoId: number) => {
+    const updatedTodos = activeList.todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.done = !todo.done;
+      }
+      return todo;
+    });
+
+    setActiveList({
+      ...activeList,
+      todos: updatedTodos,
+    });
+  };
+
+  const deleteTodo = (todoId: number) => {
+    const updatedTodos = activeList.todos.filter((todo) => todo.id !== todoId);
+
+    setActiveList({
+      ...activeList,
+      todos: updatedTodos,
+    });
+  };
+
+  const allDone = activeList.todos.every((todo) => todo.done);
+
   console.log("activelist", activeList);
 
   return (
@@ -57,10 +87,30 @@ export const TodoList = ({ activeList, setActiveList }: TodoListProps) => {
       <ul className="my-todos">
         {activeList.todos.map((todo) => (
           <li key={todo.id}>
-            <Todo todo={todo} />
+            <Todo
+              todo={todo}
+              toggleTodoDone={toggleTodoDone}
+              deleteTodo={deleteTodo}
+            />
           </li>
         ))}
       </ul>
+      {(allDone || activeList.todos.length === 0) && (
+        <Container
+          border="none"
+          backgroundColor="transparent"
+          boxShadow="none"
+          display="flex"
+          justifyContent="flex-end"
+        >
+          <Button
+            children="delete list"
+            className="btn btn-filled btn-delete"
+            type="button"
+            onClick={() => deleteList(activeList.id)}
+          />
+        </Container>
+      )}
     </section>
   );
 };

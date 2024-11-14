@@ -13,6 +13,14 @@ export const Homepage = () => {
     setActiveList(todoList.find((list) => list.id === todoList.length));
   }, [todoList]);
 
+  const deleteList = (id: number) => {
+    const listToDelete = todoList.find((list) => list.id === id);
+
+    if (listToDelete) {
+      setTodoList(todoList.filter((list) => list.id !== listToDelete.id));
+    }
+  };
+
   return (
     <main className="wrapper">
       <div className="align-center">
@@ -31,7 +39,11 @@ export const Homepage = () => {
           </ul>
         )}
         {todoList.length > 0 && activeList && (
-          <TodoList activeList={activeList} setActiveList={setActiveList} />
+          <TodoList
+            activeList={activeList}
+            setActiveList={setActiveList}
+            deleteList={deleteList}
+          />
         )}
       </div>
     </main>

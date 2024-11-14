@@ -18,3 +18,8 @@
   text-align: start;
   padding: 0 1rem;
 }
+
+.todo-done {
+  color: var(--primary-600);
+  text-decoration: line-through;
+}

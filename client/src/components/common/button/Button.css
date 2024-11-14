@@ -29,3 +29,13 @@
     background-color: var(--primary-400);
   }
 }
+
+.btn-delete {
+  background-color: var(--error-base);
+  border-color: var(--error-dark);
+
+  &:hover {
+    background-color: var(--error-light);
+    color: var(--error-dark);
+  }
+}

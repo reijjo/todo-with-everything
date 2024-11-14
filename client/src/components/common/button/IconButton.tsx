@@ -7,6 +7,7 @@ type IconButtonProps = {
   size?: number;
   style?: CSSProperties;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 export const IconButton = ({
@@ -14,9 +15,15 @@ export const IconButton = ({
   size,
   onClick,
   style,
+  disabled,
 }: IconButtonProps) => {
   return (
-    <button className="btn-icon" onClick={onClick} style={style}>
+    <button
+      className="btn-icon"
+      onClick={onClick}
+      style={style}
+      disabled={disabled}
+    >
       <div>
         <Icon size={size} name={iconName} />
       </div>
