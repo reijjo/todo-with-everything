@@ -30,7 +30,7 @@
 },
 ```
 
-- Start servert with `bun run dev`
+- Start server with `bun run dev`
 
 ## Frontend
 
@@ -70,3 +70,5 @@ export const Icon = ({ name, ...props }: IconProps) => {
 ```tsx
 <Icon name="activity" />
 ```
+
+## Backend

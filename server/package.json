@@ -1,19 +1,26 @@
 {
   "name": "server",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch run index.ts",
+    "dev": "NODE_ENV=development bun --watch run src/index.ts",
     "clean": "rm -rf node_modules .bun bun.lockb dist"
   },
   "devDependencies": {
     "@types/bun": "^1.1.12",
-    "@types/express": "^5.0.0"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "morgan": "^1.10.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "colorette": "^2.0.20",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5"
   }
 }
