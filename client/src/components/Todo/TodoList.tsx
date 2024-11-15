@@ -4,6 +4,7 @@ import { Button, Container, TextInput } from "../common";
 import { TodoLists } from "../../utils/types";
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { listApi } from "../../api/listApi";
+import { todoApi } from "../../api/todoApi";
 
 type TodoListProps = {
   activeId: number;
@@ -17,39 +18,41 @@ export const TodoList = ({ activeId, deleteList }: TodoListProps) => {
     title: "",
     todos: [],
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect");
     const fetchList = async () => {
-      const response = await listApi.getOneList(activeId);
-      setTodoList(response.data);
+      try {
+        const response = await listApi.getOneList(activeId);
+        setTodoList(response.data);
+      } catch (error: unknown) {
+        console.log("Error fetching list: ", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchList();
-    console.log("useEffect loppui");
   }, [activeId]);
-
-  console.log("activeId", activeId);
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
   };
 
-  const addTodo = (e: SyntheticEvent) => {
+  const addTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    // const newTodoItem = {
-    //   // id: activeList.todos.length + 1,
-    //   content: newTodo,
-    //   done: false,
-    // };
+    if (!newTodo.trim()) {
+      console.log("Todo content is required");
+      return;
+    }
 
-    // setActiveList({
-    //   ...activeList,
-    //   todos: [...activeList.todos, newTodoItem],
-    // });
-
-    setNewTodo("");
+    try {
+      const response = await todoApi.createTodo(activeId, newTodo);
+      console.log(response);
+    } catch (error: unknown) {
+      console.log("Error creating todo: ", error);
+    }
   };
 
   const toggleTodoDone = (todoId: number) => {
@@ -77,8 +80,6 @@ export const TodoList = ({ activeId, deleteList }: TodoListProps) => {
 
   const allDone = todoList.todos?.every((todo) => todo.done);
 
-  console.log("todoList", todoList.todos?.length ?? 5);
-
   return (
     <section className="todo-list">
       <h2>{todoList.title}</h2>
@@ -92,20 +93,18 @@ export const TodoList = ({ activeId, deleteList }: TodoListProps) => {
         onClick={addTodo}
         value={newTodo}
       />
-      {todoList.todos?.length > 0 && (
-        <ul className="my-todos">
-          {todoList.todos.map((todo) => (
-            <li key={todo.id}>
-              <Todo
-                todo={todo}
-                toggleTodoDone={toggleTodoDone}
-                deleteTodo={deleteTodo}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
-      {(allDone || todoList.todos?.length === 0) && (
+      <ul className="my-todos">
+        {todoList.todos.map((todo) => (
+          <li key={todo.id}>
+            <Todo
+              todo={todo}
+              toggleTodoDone={toggleTodoDone}
+              deleteTodo={deleteTodo}
+            />
+          </li>
+        ))}
+      </ul>
+      {(allDone || todoList.todos.length === 0) && !loading && (
         <Container
           border="none"
           backgroundColor="transparent"

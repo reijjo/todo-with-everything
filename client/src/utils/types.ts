@@ -1,7 +1,7 @@
 export type TodoContent = {
-  id: number;
+  id?: number;
   content: string;
-  done: boolean;
+  done?: boolean;
 };
 
 export type TodoLists = {

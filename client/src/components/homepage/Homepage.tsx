@@ -13,7 +13,6 @@ export const Homepage = () => {
   useEffect(() => {
     const fetchLists = async () => {
       const response = await listApi.getLists();
-
       setTodoList(response.data);
     };
 
@@ -32,20 +31,17 @@ export const Homepage = () => {
     }
   };
 
-  console.log("todoList", todoList);
-  console.log("activeId", activeId);
-
   return (
     <main className="wrapper">
       <div className="align-center">
         <h1>To-do lists</h1>
-        {todoList.length === 0 ? (
+        {todoList?.length === 0 ? (
           <Container width="50%">
             <CreateNewList todoList={todoList} setTodoList={setTodoList} />
           </Container>
         ) : (
           <ul className="todo-lists">
-            {todoList.map((list) => (
+            {todoList?.map((list) => (
               <a key={list.id} onClick={() => setActiveId(list.id)}>
                 <li>{list.title}</li>
               </a>

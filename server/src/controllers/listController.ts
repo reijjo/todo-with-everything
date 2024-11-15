@@ -11,6 +11,7 @@ export const getLists = async (_req: Request, res: Response) => {
       },
       include: {
         model: Todos,
+        as: "todos",
         attributes: { exclude: ["createdAt", "updatedAt", "listId"] },
       },
     });
@@ -57,6 +58,7 @@ export const getListById = async (req: Request, res: Response) => {
       },
       include: {
         model: Todos,
+        as: "todos",
         attributes: { exclude: ["createdAt", "updatedAt"] },
       },
     });
