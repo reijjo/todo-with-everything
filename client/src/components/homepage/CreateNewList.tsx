@@ -15,7 +15,7 @@ export const CreateNewList = ({
   const [inputErrors, setInputErrors] = useState<string[]>([]);
   const [newList, setNewList] = useState("");
 
-  const handleCreateNewList = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleListChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewList(e.target.value);
   };
 
@@ -54,7 +54,7 @@ export const CreateNewList = ({
           inputErrors.length > 0 ? "input-error" : ""
         }`}
         buttonText="Create"
-        onChange={handleCreateNewList}
+        onChange={handleListChange}
         onClick={createNewList}
         value={newList}
         errorMessage={inputErrors}

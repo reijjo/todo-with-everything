@@ -1,9 +1,9 @@
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../utils/db";
+import { sequelize } from "../utils/db/db";
 
-class Todolists extends Model {}
+class Lists extends Model {}
 
-Todolists.init(
+Lists.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,4 +23,4 @@ Todolists.init(
   }
 );
 
-export { Todolists };
+export { Lists };

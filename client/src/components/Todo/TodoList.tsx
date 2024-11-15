@@ -2,26 +2,34 @@ import "./TodoList.css";
 import { Todo } from "./Todo";
 import { Button, Container, TextInput } from "../common";
 import { TodoLists } from "../../utils/types";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-  useState,
-} from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { listApi } from "../../api/listApi";
 
 type TodoListProps = {
-  activeList: TodoLists;
-  setActiveList: Dispatch<SetStateAction<TodoLists | undefined>>;
+  activeId: number;
   deleteList: (id: number) => void;
 };
 
-export const TodoList = ({
-  activeList,
-  setActiveList,
-  deleteList,
-}: TodoListProps) => {
+export const TodoList = ({ activeId, deleteList }: TodoListProps) => {
   const [newTodo, setNewTodo] = useState("");
+  const [todoList, setTodoList] = useState<TodoLists>({
+    id: 0,
+    title: "",
+    todos: [],
+  });
+
+  useEffect(() => {
+    console.log("useEffect");
+    const fetchList = async () => {
+      const response = await listApi.getOneList(activeId);
+      setTodoList(response.data);
+    };
+
+    fetchList();
+    console.log("useEffect loppui");
+  }, [activeId]);
+
+  console.log("activeId", activeId);
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
@@ -30,50 +38,50 @@ export const TodoList = ({
   const addTodo = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    const newTodoItem = {
-      id: activeList.todos.length + 1,
-      content: newTodo,
-      done: false,
-    };
+    // const newTodoItem = {
+    //   // id: activeList.todos.length + 1,
+    //   content: newTodo,
+    //   done: false,
+    // };
 
-    setActiveList({
-      ...activeList,
-      todos: [...activeList.todos, newTodoItem],
-    });
+    // setActiveList({
+    //   ...activeList,
+    //   todos: [...activeList.todos, newTodoItem],
+    // });
 
     setNewTodo("");
   };
 
   const toggleTodoDone = (todoId: number) => {
-    const updatedTodos = activeList.todos.map((todo) => {
+    const updatedTodos = todoList.todos.map((todo) => {
       if (todo.id === todoId) {
         todo.done = !todo.done;
       }
       return todo;
     });
 
-    setActiveList({
-      ...activeList,
+    setTodoList({
+      ...todoList,
       todos: updatedTodos,
     });
   };
 
   const deleteTodo = (todoId: number) => {
-    const updatedTodos = activeList.todos.filter((todo) => todo.id !== todoId);
+    const updatedTodos = todoList.todos.filter((todo) => todo.id !== todoId);
 
-    setActiveList({
-      ...activeList,
+    setTodoList({
+      ...todoList,
       todos: updatedTodos,
     });
   };
 
-  const allDone = activeList.todos.every((todo) => todo.done);
+  const allDone = todoList.todos?.every((todo) => todo.done);
 
-  console.log("activelist", activeList);
+  console.log("todoList", todoList.todos?.length ?? 5);
 
   return (
     <section className="todo-list">
-      <h2>{activeList.title}</h2>
+      <h2>{todoList.title}</h2>
       <TextInput
         className="input-width-full"
         placeholder="Add something to do..."
@@ -84,18 +92,20 @@ export const TodoList = ({
         onClick={addTodo}
         value={newTodo}
       />
-      <ul className="my-todos">
-        {activeList.todos.map((todo) => (
-          <li key={todo.id}>
-            <Todo
-              todo={todo}
-              toggleTodoDone={toggleTodoDone}
-              deleteTodo={deleteTodo}
-            />
-          </li>
-        ))}
-      </ul>
-      {(allDone || activeList.todos.length === 0) && (
+      {todoList.todos?.length > 0 && (
+        <ul className="my-todos">
+          {todoList.todos.map((todo) => (
+            <li key={todo.id}>
+              <Todo
+                todo={todo}
+                toggleTodoDone={toggleTodoDone}
+                deleteTodo={deleteTodo}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+      {(allDone || todoList.todos?.length === 0) && (
         <Container
           border="none"
           backgroundColor="transparent"
@@ -107,7 +117,7 @@ export const TodoList = ({
             children="delete list"
             className="btn btn-filled btn-delete"
             type="button"
-            onClick={() => deleteList(activeList.id)}
+            onClick={() => deleteList(activeId)}
           />
         </Container>
       )}

@@ -1,10 +1,20 @@
 import { Sequelize } from "sequelize";
-import { config } from "./config";
+import { config } from "../config";
 import { cyanBright } from "colorette";
 
 const { DATABASE_URL } = config;
 
-export const sequelize = new Sequelize(DATABASE_URL);
+console.log(DATABASE_URL);
+
+export const sequelize = new Sequelize(DATABASE_URL, {
+  dialect: "postgres",
+  pool: {
+    max: 10,
+    min: 2,
+    acquire: 30000,
+    idle: 10000,
+  },
+});
 
 export const connectToDB = async () => {
   try {

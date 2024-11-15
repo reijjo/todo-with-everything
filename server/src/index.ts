@@ -1,6 +1,6 @@
 import * as http from "http";
 import { magentaBright, yellowBright } from "colorette";
-import { connectToDB } from "./utils/db";
+import { connectToDB } from "./utils/db/db";
 import app from "./app";
 import { config } from "./utils/config";
 

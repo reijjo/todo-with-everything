@@ -1,5 +1,14 @@
-import { Todolists } from "./todoLists";
+import { Lists } from "./lists";
+import { Todos } from "./todos";
 
-Todolists.sync();
+Lists.hasMany(Todos, {
+  foreignKey: "listId",
+});
+Todos.belongsTo(Lists, {
+  foreignKey: "listId",
+});
 
-export { Todolists };
+Lists.sync({ alter: true });
+Todos.sync({ alter: true });
+
+export { Lists, Todos };
