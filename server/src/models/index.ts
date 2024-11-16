@@ -1,3 +1,4 @@
+import { sequelize } from "../utils/db/db";
 import { Lists } from "./lists";
 import { Todos } from "./todos";
 
@@ -10,7 +11,10 @@ Todos.belongsTo(Lists, {
   as: "list",
 });
 
-Lists.sync({ alter: true });
-Todos.sync({ alter: true });
+const syncDatabase = async () => {
+  await sequelize.sync({ alter: true });
+};
+
+syncDatabase();
 
 export { Lists, Todos };

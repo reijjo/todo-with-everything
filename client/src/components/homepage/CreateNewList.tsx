@@ -2,6 +2,7 @@ import "./CreateNewList.css";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { TextInput } from "../common";
 import { TodoLists } from "../../utils/types";
+import { listApi } from "../../api/listApi";
 
 type CreateNewListProps = {
   todoList: TodoLists[];
@@ -19,7 +20,8 @@ export const CreateNewList = ({
     setNewList(e.target.value);
   };
 
-  const createNewList = (e: SyntheticEvent) => {
+  // Create new list
+  const createNewList = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const errorMessages = [];
@@ -34,13 +36,17 @@ export const CreateNewList = ({
       return;
     }
 
-    setTodoList([
-      ...todoList,
-      { id: todoList.length + 1, title: newList, todos: [] },
-    ]);
+    try {
+      const response = await listApi.createList(newList);
+      console.log("created list", response);
 
-    setNewList("");
-    setInputErrors([]);
+      setTodoList([...todoList, { id: 0, title: newList, todos: [] }]);
+
+      setNewList("");
+      setInputErrors([]);
+    } catch (error: unknown) {
+      console.log("Error creating list: ", error);
+    }
   };
 
   return (

@@ -13,6 +13,14 @@ type SingleListResponse = {
   status: number;
 };
 
+const createList = async (title: string): Promise<SingleListResponse> => {
+  const { data } = await axios.post<SingleListResponse>(
+    `${BASE_URL}/api/lists`,
+    { title }
+  );
+  return data;
+};
+
 const getLists = async (): Promise<ListResponse> => {
   const { data } = await axios.get<ListResponse>(`${BASE_URL}/api/lists`);
   return data;
@@ -26,6 +34,7 @@ const getOneList = async (id: number): Promise<SingleListResponse> => {
 };
 
 export const listApi = {
+  createList,
   getLists,
   getOneList,
 };

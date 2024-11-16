@@ -22,7 +22,7 @@ Todos.init(
     listId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: "Lists", key: "id" },
+      references: { model: "lists", key: "id" },
     },
   },
   {

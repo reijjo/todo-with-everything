@@ -31,6 +31,9 @@ export const Homepage = () => {
     }
   };
 
+  console.log("todolist", todoList);
+  console.log("activeId", activeId);
+
   return (
     <main className="wrapper">
       <div className="align-center">

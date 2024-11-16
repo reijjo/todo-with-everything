@@ -80,6 +80,8 @@ export const TodoList = ({ activeId, deleteList }: TodoListProps) => {
 
   const allDone = todoList.todos?.every((todo) => todo.done);
 
+  console.log("todoList", todoList);
+
   return (
     <section className="todo-list">
       <h2>{todoList.title}</h2>
