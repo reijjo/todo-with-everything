@@ -1,20 +1,20 @@
-import { sequelize } from "../utils/db/db";
-import { Lists } from "./lists";
 import { Todos } from "./todos";
 
-Lists.hasMany(Todos, {
-  foreignKey: "listId",
-  as: "todos",
-});
-Todos.belongsTo(Lists, {
-  foreignKey: "listId",
-  as: "list",
-});
+// Lists.hasMany(Todos, {
+//   foreignKey: "listId",
+//   as: "todos",
+// });
+// Todos.belongsTo(Lists, {
+//   foreignKey: "listId",
+//   as: "list",
+// });
 
-const syncDatabase = async () => {
-  await sequelize.sync({ alter: true });
-};
+Todos.sync({ alter: true });
 
-syncDatabase();
+// const syncDatabase = async () => {
+//   await sequelize.sync({ alter: true });
+// };
 
-export { Lists, Todos };
+// syncDatabase();
+
+export { Todos };

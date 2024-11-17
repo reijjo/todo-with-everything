@@ -9,24 +9,3 @@
 
   gap: 16px;
 }
-
-.todo-lists {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  z-index: 1;
-
-  & a:hover {
-    cursor: pointer;
-    background-color: white;
-  }
-
-  & li {
-    border: 1px solid var(--primary);
-    padding: 16px 32px;
-
-    border-radius: 4px;
-  }
-}

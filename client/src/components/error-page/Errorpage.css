@@ -1,0 +1,8 @@
+.error-center {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin-top: 15vh;
+
+  gap: 16px;
+}

@@ -4,10 +4,9 @@ import { cyanBright } from "colorette";
 
 const { DATABASE_URL } = config;
 
-console.log(DATABASE_URL);
-
 export const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
+  logging: console.log,
   pool: {
     max: 10,
     min: 2,
