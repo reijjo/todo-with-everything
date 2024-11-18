@@ -132,3 +132,4 @@ dist
 # Extra
 **/.DS_Store
 server/database
+**/node_modules

@@ -4,6 +4,8 @@ import { cyanBright } from "colorette";
 
 const { DATABASE_URL } = config;
 
+console.log("DATA", DATABASE_URL);
+
 export const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
   logging: console.log,
