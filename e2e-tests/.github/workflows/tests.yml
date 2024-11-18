@@ -1,0 +1,23 @@
+name: Full Tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend-tests:
+    name: Frontend Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install Frontend Dependencies
+        run: |
+          cd client
+          npm ci
+      - name: Run Frontend Tests
+        run: |
+          cd client
+          bun run test -- --coverage

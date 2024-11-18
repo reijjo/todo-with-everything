@@ -16,6 +16,28 @@ https://playwright.dev/
   },
 ```
 
+- Create `tsconfig.ts` file in the playwright folder:
+
+```ts
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["**/*.ts"]
+}
+
+```
+
+## Usage
+
 - It has it's own example test so just run it `bun run test`
 - Example for homepage test (`homepage.spec.ts`):
 
