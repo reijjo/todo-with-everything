@@ -1,3 +1,94 @@
+# Testing
+
+## Install packages
+
+- `bun add -d vitest @testing-library/react jsdom @vitejs/plugin-react @testing-library/jest-dom @types/testing-library__jest-dom`
+- Create `vitest.setup.ts` file:
+
+```ts
+import "@testing-library/jest-dom";
+import { afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
+
+afterEach(() => {
+  cleanup();
+});
+```
+
+- Update `vite.config.ts`:
+
+```ts
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"],
+  },
+});
+```
+
+- Add types to `tsconfig.app.json` file:
+
+```ts
+{
+  "compilerOptions": {
+		...
+    "types": ["@testing-library/jest-dom", "node"],
+		...
+  },
+  "include": ["src"]
+}
+```
+
+- And also to `tsconfig.node.json` file:
+
+```ts
+{
+  "compilerOptions": {
+		...
+    "types": ["node"],
+		...
+  },
+  "include": ["vite.config.ts"]
+}
+```
+
+- Test with `vitest` not with `bun test`. Add to `package.json`:
+
+```json
+  "scripts": {
+    ...
+    "test": "vitest"
+  },
+```
+
+- And run with `bun run test`. Example test for Navbar (`Navbar.spec.tsx`):
+
+```ts
+import { describe, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { Navbar } from "./Navbar";
+
+describe("Navbar", async () => {
+  test("renders NavLinks", () => {
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>
+    );
+
+    const navlinkHome = screen.getByRole("link", { name: /home/i });
+    expect(navlinkHome).toBeInTheDocument();
+  });
+});
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,11 +109,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +122,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +135,7 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
