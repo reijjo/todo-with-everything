@@ -17,7 +17,7 @@ jobs:
         run: |
           cd client
           npm ci
-      - name: Run Frontend Tests
+      - name: Testing Frontend...
         run: |
           cd client
           bun run test -- --coverage
