@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { todoRouter } from "./routes";
-import { errorHandler } from "./utils/errorHandler";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 

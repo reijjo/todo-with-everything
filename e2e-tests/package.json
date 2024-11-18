@@ -5,7 +5,9 @@
   "scripts": {
     "test": "playwright test",
     "test:report": "playwright show-report",
-    "test:ui": "bun run test -- --ui"
+    "test:ui": "bun run test -- --ui",
+    "clean": "rm -rf node_modules && rm package-lock.json",
+    "install": "npx playwright install"
   },
   "keywords": [],
   "author": "",

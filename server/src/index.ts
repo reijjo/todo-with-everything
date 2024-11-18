@@ -9,12 +9,16 @@ const { PORT } = config;
 const server = http.createServer(app);
 
 const start = async () => {
-  await connectToDB();
+  try {
+    await connectToDB();
 
-  server.listen(PORT, () => {
-    console.log(yellowBright(`ENV = '${Bun.env.NODE_ENV}'`));
-    console.log(magentaBright(`Server on port ${PORT}.`));
-  });
+    server.listen(PORT, () => {
+      console.log(yellowBright(`ENV = '${Bun.env.NODE_ENV}'`));
+      console.log(magentaBright(`Server on port ${PORT}.`));
+    });
+  } catch (error: unknown) {
+    throw error;
+  }
 };
 
 start();
