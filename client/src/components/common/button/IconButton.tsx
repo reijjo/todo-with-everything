@@ -1,5 +1,7 @@
 import "./IconButton.css";
+
 import { Icon, IconProps } from "../icon/Icon";
+
 import { CSSProperties } from "react";
 
 type IconButtonProps = {
