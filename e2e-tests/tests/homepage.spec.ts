@@ -3,6 +3,8 @@ import { test, expect } from "@playwright/test";
 const BASE_URL =
   process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
 
+console.log("BASEURLLL", BASE_URL);
+
 test.beforeEach(async ({ page }) => {
   if (!BASE_URL) {
     throw new Error("BASE_URL is not defined");
