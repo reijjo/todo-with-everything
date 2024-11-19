@@ -40,7 +40,7 @@ jobs:
           cd server
           node -e "console.log('Backend test placeholder: All systems go!')"
 
-  test:
+  e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +55,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run e2e tests
-        run: npm playwright test
+        run: npm run test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
