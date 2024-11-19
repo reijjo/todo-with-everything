@@ -97,5 +97,20 @@ if [ "$current_branch" = "$protected_branch" ]; then
 fi
 ```
 
-This makes sure that you can't push directly in the main branch
-.
+This makes sure that you can't push directly in the main branch.
+
+- Also create `pre-commit` file in the `.git/hooks` folder in the root of your repository:
+
+```
+#!/bin/bash
+
+protected_branch="main"
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$current_branch" = "$protected_branch" ]; then
+  echo "🚨 Direct commits or adds to the '$protected_branch' branch are not allowed!"
+  exit 1
+fi
+```
+
+This prevents adding files on the main branch
