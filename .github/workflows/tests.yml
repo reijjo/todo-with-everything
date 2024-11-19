@@ -51,6 +51,8 @@ jobs:
           cd client
           npm install
           npm run build
+      - name: Set BASE_URL environment variable
+        run: echo "BASE_URL=http://localhost:3000" >> $GITHUB_ENV
       - name: Start localhost
         run: |
           npx serve -s client/dist &
