@@ -53,7 +53,7 @@ jobs:
           npm run build
       - name: Start localhost
         run: |
-          npx serve -s client/dist
+          npx serve -s client/dist &
           npx wait-on http://localhost:3000
       - name: Run e2e tests
         run: cd e2e-tests && npm run test
