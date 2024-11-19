@@ -1,5 +1,7 @@
-import { Icon } from "../icon/Icon";
 import "./Modal.css";
+
+import { Icon } from "../icon/Icon";
+
 import { ReactNode } from "react";
 
 type ModalProps = {
