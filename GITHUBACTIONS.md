@@ -108,14 +108,16 @@ fi
 protected_branch="main"
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-# Check if we are on the 'main' branch
 if [ "$current_branch" = "$protected_branch" ]; then
-  # Check if there are any staged files (files that are git added)
   if ! git diff --cached --quiet; then
-    echo "🚨 Direct staging ('git add') to the '$protected_branch' branch is not allowed!"
+    echo "🚨 Staged changes are not allowed on the '$protected_branch' branch!"
+    echo "Unstaging files..."
+    # Unstage all files
+    git reset
     exit 1
   fi
 fi
+
 
 ```
 
