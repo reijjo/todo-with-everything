@@ -97,5 +97,4 @@ if [ "$current_branch" = "$protected_branch" ]; then
 fi
 ```
 
-This makes sure that you can't push directly in the main branch
-.
+This makes sure that you can't push directly in the main branch.
