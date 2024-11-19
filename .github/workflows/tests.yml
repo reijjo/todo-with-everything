@@ -17,8 +17,8 @@ jobs:
       - name: Install Frontend Dependencies
         run: |
           cd client
-          bun install
+          npm install
       - name: Run Frontend Tests
         run: |
           cd client
-          bun run test
+          npm run test
