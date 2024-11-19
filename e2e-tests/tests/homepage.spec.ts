@@ -1,7 +1,13 @@
 import { test, expect } from "@playwright/test";
 
+const BASE_URL =
+  process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
+
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:5173");
+  if (!BASE_URL) {
+    throw new Error("BASE_URL is not defined");
+  }
+  await page.goto(BASE_URL);
 });
 
 test.describe("Homepage", () => {

@@ -56,7 +56,7 @@ jobs:
           npx serve -s client/dist &
           npx wait-on http://localhost:3000
       - name: Run e2e tests
-        run: cd e2e-tests && npm run test
+        run: cd e2e-tests && npm run test:cicd
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
