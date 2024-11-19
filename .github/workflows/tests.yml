@@ -49,6 +49,7 @@ jobs:
       - name: Build the app
         run: |
           cd client
+          npm install
           npm run build
       - name: Start localhost
         run: |
