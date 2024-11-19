@@ -12,6 +12,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   frontend-tests:
@@ -74,3 +77,22 @@ jobs:
 ```
 
 This requires that you have some tests done and installed playwright etc.
+
+## Protect the branch in GitHub
+
+- Go to your branch settings -> Branches -> Add rule
+- _Branch name pattern_: `main`
+- Check these boxes on _Protect matching branches_ -> `Require a pull request before merging`, `Require approvals`, `Require status checks to pass before merging`, `Require branches to be up to date before merging`
+- Search for `Backend Tests`, `Frontend Tests`, `e2e-tests` for the status checks and Save changes
+- Create `pre-push` file in `.git/hooks` folder in the root of your repository:
+
+```
+#!/bin/bash
+protected_branch="main"
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$current_branch" = "$protected_branch" ]; then
+  echo "🚨 Direct pushes to '$protected_branch' are not allowed! Please create a pull request."
+  exit 1
+fi
+```
