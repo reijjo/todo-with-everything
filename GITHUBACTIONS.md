@@ -97,7 +97,8 @@ if [ "$current_branch" = "$protected_branch" ]; then
 fi
 ```
 
-This makes sure that you can't push directly in the main branch.
+- `chmod +x .git/hooks/pre-push` to make it executable
+  This makes sure that you can't push directly in the main branch.
 
 - Also create `pre-commit` file in the `.git/hooks` folder in the root of your repository:
 
@@ -107,10 +108,16 @@ This makes sure that you can't push directly in the main branch.
 protected_branch="main"
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
+# Check if we are on the 'main' branch
 if [ "$current_branch" = "$protected_branch" ]; then
-  echo "🚨 Direct commits or adds to the '$protected_branch' branch are not allowed!"
-  exit 1
+  # Check if there are any staged files (files that are git added)
+  if ! git diff --cached --quiet; then
+    echo "🚨 Direct staging ('git add') to the '$protected_branch' branch is not allowed!"
+    exit 1
+  fi
 fi
+
 ```
 
-This prevents adding files on the main branch
+- `chmod +x .git/hooks/pre-commit` to make it executable
+  This prevents commiting files on the main branch
