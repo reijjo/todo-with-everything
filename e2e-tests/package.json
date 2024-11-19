@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "dotenv playwright test",
+    "test": "playwright test",
     "test:report": "playwright show-report",
     "test:ui": "bun run test -- --ui",
     "clean": "rm -rf node_modules && rm package-lock.json",
     "install": "npx playwright install",
-    "test:cicd": "NODE_ENV=test dotenv playwright test"
+    "test:cicd": "NODE_ENV=test playwright test"
   },
   "keywords": [],
   "author": "",
