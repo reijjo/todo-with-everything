@@ -1,12 +1,17 @@
+# GitHub Actions (CI/CD pipeline)
+
+## Create workflow
+
+- Create folder `.github/workflows` in the root of your project
+- Make a `tests.yml` file
+
+```yml
 name: Tests
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize]
 
 jobs:
   frontend-tests:
@@ -66,3 +71,6 @@ jobs:
           name: playwright-report
           path: e2e-tests/playwright-report/
           retention-days: 30
+```
+
+This requires that you have some tests done and installed playwright etc.

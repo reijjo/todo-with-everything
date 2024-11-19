@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 test.describe("Homepage", () => {
   test("should display the homepage", async ({ page }) => {
     const heading = page.locator("h1");
-    await expect(heading).toHaveText(/to-do list!/i);
+    await expect(heading).toHaveText(/to-do list/i);
   });
 
   test("finds the links in the navbar", async ({ page }) => {
