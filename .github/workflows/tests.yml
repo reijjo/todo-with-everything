@@ -46,19 +46,11 @@ jobs:
         run: cd e2e-tests && npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Check Environment Variables1
-        run: |
-          echo "BASE_URL=${{ secrets.BASE_URL }}"
-          echo "TEST_URL=${{ secrets.TEST_URL }}"
       - name: Build the app
         run: |
           cd client
           npm install
           npm run build
-      - name: Check Environment Variables1
-        run: |
-          echo "BASE_URL=${{ secrets.BASE_URL }}"
-          echo "TEST_URL=${{ secrets.TEST_URL }}"
       - name: Start localhost
         run: |
           npx serve -s client/dist &
