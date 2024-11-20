@@ -3,7 +3,7 @@ import "./TextInput.css";
 import { StyleProps } from "../../../utils/types";
 import { InputButton } from "./InputButton";
 
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, SyntheticEvent } from "react";
 
 interface TextInputWithButtonProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "width" | "height">,
@@ -12,6 +12,7 @@ interface TextInputWithButtonProps
   id: string;
   label: string;
   showLabel?: boolean;
+  onClick: (e: SyntheticEvent) => void;
 }
 
 export const TextInputWithButton = ({
@@ -22,6 +23,7 @@ export const TextInputWithButton = ({
   width = "100%",
   height = "2.5rem",
   backgroundColor = "white",
+  onClick,
   ...props
 }: TextInputWithButtonProps) => {
   return (
@@ -43,7 +45,7 @@ export const TextInputWithButton = ({
               backgroundColor: backgroundColor,
             }}
           />
-          <InputButton buttonText="add" onClick={() => console.log("HEYY")} />
+          <InputButton buttonText="add" onClick={onClick} />
         </div>
       </div>
     </div>
