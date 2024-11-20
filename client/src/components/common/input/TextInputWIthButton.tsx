@@ -1,10 +1,11 @@
 import "./TextInput.css";
 
 import { StyleProps } from "../../../utils/types";
+import { InputButton } from "./InputButton";
 
 import { InputHTMLAttributes } from "react";
 
-interface TextInputProps
+interface TextInputWithButtonProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "width" | "height">,
     StyleProps {
   name: string;
@@ -13,7 +14,7 @@ interface TextInputProps
   showLabel?: boolean;
 }
 
-export const TextInput = ({
+export const TextInputWithButton = ({
   name,
   id,
   label,
@@ -22,7 +23,7 @@ export const TextInput = ({
   height = "2.5rem",
   backgroundColor = "white",
   ...props
-}: TextInputProps) => {
+}: TextInputWithButtonProps) => {
   return (
     <div className="text-input-container">
       <div className="text-input-wrapper" style={{ width }}>
@@ -31,16 +32,19 @@ export const TextInput = ({
             {label}
           </label>
         )}
-        <input
-          type="text"
-          name={name}
-          id={id}
-          {...props}
-          style={{
-            height: height,
-            backgroundColor: backgroundColor,
-          }}
-        />
+        <div className="text-input-button-wrapper">
+          <input
+            type="text"
+            name={name}
+            id={id}
+            {...props}
+            style={{
+              height: height,
+              backgroundColor: backgroundColor,
+            }}
+          />
+          <InputButton buttonText="add" onClick={() => console.log("HEYY")} />
+        </div>
       </div>
     </div>
   );

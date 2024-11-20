@@ -7,8 +7,10 @@ type InputButtonProps = {
 
 export const InputButton = ({ buttonText, onClick }: InputButtonProps) => {
   return (
-    <div>
-      <button onClick={onClick}>{buttonText}</button>
+    <div className="text-input-button-container">
+      <button className="montserrat-style" onClick={onClick}>
+        {buttonText}
+      </button>
     </div>
   );
 };
