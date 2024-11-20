@@ -1,13 +1,30 @@
-import "./Divider.css";
 import { CSSProperties } from "react";
 
 type DividerProps = {
-  margin: number | CSSProperties;
-  hasText?: boolean;
+  padding: number;
+  color?: string;
+  thickness?: string;
 };
 
-export const Divider = ({ margin }: DividerProps) => {
-  const style =
-    typeof margin === "number" ? { margin: `${margin}px 0` } : margin;
-  return <hr className="divider" style={style} />;
+export const Divider = ({
+  padding,
+  color = "var(--primary)",
+  thickness = "1px",
+}: DividerProps) => {
+  const style: CSSProperties = {
+    padding: `${padding}px 0`,
+    width: "100%",
+    backgroundColor: "transparent",
+  };
+
+  const dividerStyle: CSSProperties = {
+    borderTop: `${thickness} solid ${color}`,
+    margin: 0,
+    width: "100%",
+  };
+  return (
+    <div style={style}>
+      <hr className="divider" style={dividerStyle} />
+    </div>
+  );
 };

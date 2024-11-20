@@ -9,3 +9,9 @@ export interface StyleProps {
   display?: string;
   justifyContent?: string;
 }
+
+export interface Todo {
+  id: number;
+  content: string;
+  done: boolean;
+}
