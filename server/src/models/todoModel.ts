@@ -1,23 +1,20 @@
 import { sequelize } from "../utils/db/db";
-import type { TodoAttributes } from "../utils/types";
+import type { Todo } from "../utils/types";
 import { DataTypes, Model, type Optional } from "sequelize";
 
-// Mark `id` as optional since it will be auto-generated
-export interface TodoCreation extends Optional<TodoAttributes, "id"> {}
+export interface TodoInput extends Optional<Todo, "id" | "done"> {}
 
-class Todo
-  extends Model<TodoAttributes, TodoCreation>
-  implements TodoAttributes
-{
-  public id!: number; // `!` tells TypeScript this field is required
-  public content!: string;
-  public done!: boolean;
+class TodoModel extends Model<Todo, TodoInput> implements Todo {
+  id!: number;
+  content!: string;
+  done!: boolean;
 
+  // Timestamps
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
 
-Todo.init(
+TodoModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -42,4 +39,4 @@ Todo.init(
   },
 );
 
-export { Todo };
+export { TodoModel };

@@ -1,5 +1,5 @@
-import { Todo } from "./todoModel";
+import { TodoModel } from "./todoModel";
 
-Todo.sync({ alter: true });
+TodoModel.sync({ alter: true });
 
-export { Todo };
+export { TodoModel };
