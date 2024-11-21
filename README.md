@@ -1,5 +1,28 @@
 # todo-with-everything
 
+## Run project
+### Frontend
+`npm run dev` in the client folder
+- localhost:5173
+
+### Backend
+`npm run dev` in the server folder
+- localhost:3001
+
+### PostgreSQL & pgAdmin
+`docker compose up` in the server folder
+- pgAdmin at localhost:5050
+
+## Run tests
+### Frontend
+`npm run test` in the client folder
+
+### Backend (there arent any tests yet)
+`npm run test` in the server folder
+
+### e2e-tests
+`npm run test` in the e2e-tests folder
+
 ## Create Project (Bun)
 
 ### Frontend
