@@ -1,20 +1,5 @@
-import { Todos } from "./todos";
+import { TodoModel } from "./todoModel";
 
-// Lists.hasMany(Todos, {
-//   foreignKey: "listId",
-//   as: "todos",
-// });
-// Todos.belongsTo(Lists, {
-//   foreignKey: "listId",
-//   as: "list",
-// });
+TodoModel.sync({ alter: true });
 
-Todos.sync({ alter: true });
-
-// const syncDatabase = async () => {
-//   await sequelize.sync({ alter: true });
-// };
-
-// syncDatabase();
-
-export { Todos };
+export { TodoModel };
