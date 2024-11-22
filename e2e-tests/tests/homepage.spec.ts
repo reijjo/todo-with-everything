@@ -2,6 +2,11 @@ import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
+
+	console.log('Current URL!!!:', page.url());
+
+	const pageContent = await page.content();
+  console.log('Full Page Content:', pageContent);
 });
 
 test.describe("Homepage", () => {
