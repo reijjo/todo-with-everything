@@ -3,7 +3,11 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
+    "start": "NODE_ENV=production bun run src/index.ts",
     "dev": "NODE_ENV=development bun --watch run src/index.ts",
+    "build": "rm -rf dist out && cd ../client && npm run build && cp -r dist ../server && cd ../server && bun build ./src/index.ts --outdir ./out --target node",
+		"prod": "NODE_ENV=production bun run out/index.js",
+    "test": "NODE_ENV=test bun --watch run src/index.ts",
     "clean": "rm -rf node_modules .bun bun.lockb dist"
   },
   "devDependencies": {
@@ -11,7 +15,9 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
-    "morgan": "^1.10.0"
+    "@types/node": "^22.9.1",
+    "morgan": "^1.10.0",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -21,6 +27,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.5"
   }
 }

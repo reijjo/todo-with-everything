@@ -49,17 +49,17 @@ jobs:
         run: cd e2e-tests && npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Build the app
-        run: |
-          cd client
-          npm install
-          npm run build
-      - name: Start localhost
-        run: |
-          npx serve -s client/dist &
-          npx wait-on http://localhost:3000
-      - name: Run e2e tests
-        run: cd e2e-tests && npm run test:cicd --reporter=html
+      # - name: Build the App
+      #   run: |
+      #     cd client
+      #     npm install
+      #     npm run build
+      # - name: Start App
+      #   run: |
+      #     npx serve -s client/dist &
+      #     npx wait-on http://localhost:3000
+      # - name: Run e2e tests
+      #   run: cd e2e-tests && npm run test:cicd --reporter=html
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:

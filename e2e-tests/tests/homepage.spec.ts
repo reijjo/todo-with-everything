@@ -5,8 +5,8 @@ test.beforeEach(async ({ page }) => {
 
 	console.log('Current URL!!!:', page.url());
 
-	const pageContent = await page.content();
-  console.log('Full Page Content:', pageContent);
+	// const pageContent = await page.content();
+  // console.log('Full Page Content:', pageContent);
 });
 
 test.describe("Homepage", () => {

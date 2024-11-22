@@ -1,8 +1,9 @@
-import { NotFound } from "./components/not-found/NotFound";
-import { Homepage } from "./components/homepage/Homepage";
 import { Layout } from "./components/common/layout/Layout";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Errorpage } from "./components/error-page/Errorpage";
+import { Homepage } from "./components/homepage/Homepage";
+import { NotFound } from "./components/not-found/NotFound";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {

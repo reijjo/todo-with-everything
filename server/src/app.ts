@@ -7,6 +7,8 @@ import morgan from "morgan";
 
 const app = express();
 
+app.use(express.static("dist"));
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());

@@ -28,8 +28,8 @@ export const TodoComponent = ({
         className="todo-checkbox"
         checked={todo.done}
         onChange={handleTodoDone}
-        id="todo"
-        name="todo"
+        id="todo-checkbox"
+        name="todo-checkbox"
         // value={todo.done}
       />
       <a className={`todo-content-wrapper ${todo.done ? "todo-done" : ""}`}>

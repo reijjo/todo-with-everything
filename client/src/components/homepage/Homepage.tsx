@@ -14,8 +14,9 @@ export const Homepage = () => {
   useEffect(() => {
     const fetchList = async () => {
       try {
-        const response = await todoApi.allTodos();
-        setList(response.data);
+        // const response = await todoApi.allTodos();
+        // setList(response.data);
+        console.log("THIS IS WHERE THE LIST IS FETCHED!");
       } catch (error: unknown) {
         console.error("Error fetching all todos", error);
       }
