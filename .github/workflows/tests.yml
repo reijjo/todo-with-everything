@@ -45,22 +45,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - name: Install Dependencies
-        run: |
-          cd e2e-tests && npm install
-          cd server && npm install
+      - name: Install e2e-test Dependencies
+        run: cd e2e-tests && npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Start Backend
-        run: |
-          cd server
-          npm install
-          npm run test
-      - name: Start Frontend
+      - name: Build the app
         run: |
           cd client
           npm install
           npm run build
+      - name: Start Frontend
+        run: |
           npx serve -s client/dist &
           npx wait-on http://localhost:3000
       - name: Run e2e tests
