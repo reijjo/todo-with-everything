@@ -65,7 +65,7 @@ jobs:
         #   npm run build
       - name: Start App
         run: |
-          cd client
+          cd server
           bun run test &
           sleep 5
       #   run: |
