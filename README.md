@@ -4,6 +4,9 @@ Just a basic to-do list
 
 - Adding more features when feels like it
 
+<img width="640" alt="Screenshot 2024-11-22 at 12 14 34" src="https://github.com/user-attachments/assets/abb38332-7b67-4828-a0a6-24676e57736f">
+
+
 ## Run project
 
 ### .env file
