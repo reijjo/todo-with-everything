@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development bun --watch run src/index.ts",
     "build": "rm -rf dist out && cd ../client && npm run build && cp -r dist ../server && cd ../server && bun build ./src/index.ts --outdir ./out --target node",
 		"prod": "NODE_ENV=production bun run out/index.js",
-    "test": "NODE_ENV=test bun --watch run src/index.ts",
+    "test": "NODE_ENV=test bun --watch run out/index.js",
     "clean": "rm -rf node_modules .bun bun.lockb dist"
   },
   "devDependencies": {
