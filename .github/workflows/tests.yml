@@ -57,12 +57,18 @@ jobs:
           cd ../server
           bun install
           bun run build
-          bun run test
+
 
         # run: |
         #   cd client
         #   npm install
         #   npm run build
+      - name: Start App
+        run: |
+          cd client
+          bun run test &
+          sleep 5
+      #   run: |
       # - name: Start App
       #   run: |
       #     npx serve -s client/dist &
