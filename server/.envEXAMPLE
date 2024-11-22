@@ -1,5 +1,5 @@
 # Port
-PORT =
+PORT = 3001
 
 # PostgreSQL
 DATABASE_USER =

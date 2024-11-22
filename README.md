@@ -1,31 +1,47 @@
 # To-do list
 
+Just a basic to-do list
+
+- Adding more features when feels like it
+
 ## Run project
 
 ### .env file
-Rename `server/.envEXAMPLE` file to `.env`
+
+Rename the `envEXAMPLE` file to `.env` in both `server` and `client` folders
+
 - Add the missing values for your project
-  
+
 ### Frontend
+
 `npm run dev` in the client folder
+
 - localhost:5173
 
 ### Backend
+
 `npm run dev` in the server folder
+
 - localhost:3001
 
 ### PostgreSQL & pgAdmin
+
 `docker compose up` in the server folder
+
 - pgAdmin at localhost:5050
 
 ## Run tests
+
 ### Frontend
+
 `npm run test` in the client folder
 
 ### Backend (there arent any tests yet)
+
 `npm run test` in the server folder
 
 ### e2e-tests
+
 `npm run test` in the e2e-tests folder
 
 ## Create Project (Bun)
@@ -72,7 +88,8 @@ Rename `server/.envEXAMPLE` file to `.env`
 - Make a `Icon` component:
 
 ```tsx
-import { lazy, Suspense } from "react";
+import { Suspense, lazy } from "react";
+
 import { LucideProps } from "lucide-react";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 

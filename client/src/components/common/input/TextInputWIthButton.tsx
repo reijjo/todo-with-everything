@@ -1,5 +1,6 @@
 import "./TextInput.css";
 
+import { useScreenWidth } from "../../../hooks/useScreenWidth";
 import { StyleProps } from "../../../utils/types";
 import { InputButton } from "./InputButton";
 
@@ -26,9 +27,14 @@ export const TextInputWithButton = ({
   onClick,
   ...props
 }: TextInputWithButtonProps) => {
+  const isMobile = useScreenWidth();
+
   return (
     <div className="text-input-container">
-      <div className="text-input-wrapper" style={{ width }}>
+      <div
+        className="text-input-wrapper"
+        style={{ width: isMobile ? "100%" : width }}
+      >
         {showLabel && (
           <label htmlFor={id} className="montserrat-style">
             {label}

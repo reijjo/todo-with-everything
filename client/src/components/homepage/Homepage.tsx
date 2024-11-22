@@ -1,5 +1,6 @@
 import "./Homepage.css";
 
+import { todoApi } from "../../api/todoApi";
 import { Todo } from "../../utils/types";
 import { Container, TextInputWithButton } from "../common";
 import { TodoList } from "./TodoList";
@@ -12,38 +13,53 @@ export const Homepage = () => {
 
   useEffect(() => {
     const fetchList = async () => {
-      console.log("fetching list");
+      try {
+        const response = await todoApi.allTodos();
+        setList(response.data);
+      } catch (error: unknown) {
+        console.error("Error fetching all todos", error);
+      }
     };
     fetchList();
-  });
+  }, []);
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
     console.log("todo", todo);
   };
 
-  const createTodo = (e: SyntheticEvent) => {
+  const createTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
-    setList((prevList) => [
-      ...prevList,
-      { id: Date.now(), content: todo, done: false },
-    ]);
-    console.log("new todo", todo);
 
-    setTodo("");
+    try {
+      const response = await todoApi.createTodo(todo);
+      console.log("response", response.data);
+      setList(list.concat(response.data));
+      setTodo("");
+    } catch (error: unknown) {
+      console.error("Error creating todo", error);
+    }
   };
 
-  const updateTodo = (id: number, done: boolean) => {
-    setList((prevTodos) =>
-      prevTodos.map((todo) => (todo.id === id ? { ...todo, done } : todo)),
-    );
+  const updateTodo = async (id: number, done: boolean) => {
+    try {
+      await todoApi.updateTodo(id);
+      setList((prevTodos) =>
+        prevTodos.map((todo) => (todo.id === id ? { ...todo, done } : todo)),
+      );
+    } catch (error: unknown) {
+      console.error("Error updating todo", error);
+    }
   };
 
   const deleteTodo = (id: number) => {
-    setList((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    try {
+      todoApi.deleteTodo(id);
+      setList((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    } catch (error: unknown) {
+      console.error("Error deleting todo", error);
+    }
   };
-
-  console.log("list", list);
 
   return (
     <main className="wrapper">
