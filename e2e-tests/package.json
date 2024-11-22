@@ -8,7 +8,7 @@
     "test:ui": "bun run test -- --ui",
     "clean": "rm -rf node_modules && rm package-lock.json",
     "install": "npx playwright install",
-    "test:cicd": "NODE_ENV=test playwright test"
+    "test:cicd": "NODE_ENV=production playwright test"
   },
   "keywords": [],
   "author": "",
