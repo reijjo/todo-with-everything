@@ -1,6 +1,11 @@
-# todo-with-everything
+# To-do list
 
 ## Run project
+
+### .env file
+Rename `server/.envEXAMPLE` file to `.env`
+- Add the missing values for your project
+  
 ### Frontend
 `npm run dev` in the client folder
 - localhost:5173
