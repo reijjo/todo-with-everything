@@ -14,7 +14,7 @@ nav {
   max-width: 1366px;
   margin: 0 auto;
   padding: 12px 24px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   display: flex;
