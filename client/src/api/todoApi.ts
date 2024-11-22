@@ -1,29 +1,35 @@
-// import axios from "axios";
-// import { TodoContent } from "../utils/types";
+import { Todo } from "../utils/types";
 
-// const BASE_URL = import.meta.env.VITE_BASE_URL;
+import axios from "axios";
 
-// type TodoResponse = {
-//   data: TodoContent;
-//   status: number;
-// };
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const baseUrl = `${BASE_URL}/api/todos`;
 
-// const createTodo = async (
-//   listId: number,
-//   content: string
-// ): Promise<TodoResponse> => {
-//   const { data } = await axios.post(`${BASE_URL}/api/lists/${listId}/todos`, {
-//     content,
-//   });
-//   return data;
-// };
+interface TodoResponse {
+  data: Todo[];
+  ok: boolean;
+  message: string;
+}
 
-// const updateTodo = async (id: number, done: boolean): Promise<TodoResponse> => {
-//   const { data } = await axios.put(`${BASE_URL}/api/todos/${id}`, { done });
-//   return data;
-// };
+const allTodos = async (): Promise<TodoResponse> => {
+  const response = await axios.get(baseUrl);
+  return response.data;
+};
 
-// export const todoApi = {
-//   createTodo,
-//   updateTodo,
-// };
+const createTodo = async (content: string): Promise<TodoResponse> => {
+  console.log("API", content);
+  const response = await axios.post(baseUrl, { content });
+  return response.data;
+};
+
+const updateTodo = async (id: number) => {
+  const response = await axios.patch(`${baseUrl}/${id}`);
+  return response.data;
+};
+
+const deleteTodo = async (id: number) => {
+  const response = await axios.delete(`${baseUrl}/${id}`);
+  return response.data;
+};
+
+export const todoApi = { allTodos, createTodo, updateTodo, deleteTodo };
