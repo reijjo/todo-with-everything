@@ -1,5 +1,5 @@
 import { Layout } from "./components/common/layout/Layout";
-// import { Errorpage } from "./components/error-page/Errorpage";
+import { Errorpage } from "./components/error-page/Errorpage";
 import { Homepage } from "./components/homepage/Homepage";
 import { NotFound } from "./components/not-found/NotFound";
 
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    // errorElement: <Errorpage />,
+    errorElement: <Errorpage />,
     children: [
       {
         path: "/",
