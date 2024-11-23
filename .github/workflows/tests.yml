@@ -56,38 +56,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
-      # - uses: actions/setup-node@v4
-        # with:
-        #   node-version: lts/*
+        with:
+          bun-version: latest
       - name: Install e2e-test Dependencies
         run: cd e2e-tests && npm install
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Build the App
+
+      - name: Build and Start App
         run: |
           cd client
           bun install
+
           cd ../server
           bun install
           bun run build
-
-
-        # run: |
-        #   cd client
-        #   npm install
-        #   npm run build
-      - name: Start App
-        run: |
-          cd server
           bun run test &
-          npx wait-on http://localhost:3000
-      #   run: |
-      # - name: Start App
-      #   run: |
-      #     npx serve -s client/dist &
-      #     npx wait-on http://localhost:3000
+
+          npx wait on http://localhost:3000 --timeout 50000
+
       - name: Run e2e tests
-        run: cd e2e-tests && npm run test:cicd --reporter=html
+        run: |
+          cd e2e-tests
+          bun run test:cicd --reporter=html
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
