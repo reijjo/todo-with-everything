@@ -31,11 +31,11 @@ jobs:
         with:
           node-version: lts/*
       - name: Install Backend Dependencies
-        run: cd client && npm install
+        run: cd server && npm install
       - name: Run Backend Tests
         run: |
           cd server
-          node -e "console.log('Backend test placeholder: All systems go!')"
+          npm run test
 
   e2e-tests:
     timeout-minutes: 60
