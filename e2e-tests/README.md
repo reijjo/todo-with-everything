@@ -1,3 +1,34 @@
+# Unit tests
+## Install
+- `bun add -D vitest supertest @types/supertest`
+
+### Example test to see everything works:
+Create file `tests/test-example.spec.ts`:
+```ts
+import { expect, test } from 'vitest'
+
+const sum = (a: number, b: number): number => {
+	return a + b
+}
+
+test('adds 1 + 2 to equal 3', () => {
+	expect(sum(1, 2)).toBe(3)
+})
+```
+- `package.json` file:
+```json
+  "scripts": {
+		...
+    "test": "NODE_ENV=test vitest",
+		...
+  },
+```
+- Run the test with `bun run test`
+- Test the `api/todos` endpoint. Create `todo_api.spec.ts` file:
+```ts
+
+```
+
 # Playwright
 
 https://playwright.dev/
