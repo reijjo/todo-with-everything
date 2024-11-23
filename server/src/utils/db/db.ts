@@ -7,6 +7,7 @@ const URL = Bun.env.NODE_ENV === "test" ? DATABASE_TEST_URL : DATABASE_URL;
 
 console.log("DATA", URL);
 
+
 export const sequelize = new Sequelize(URL, {
   dialect: "postgres",
   logging: console.log,
