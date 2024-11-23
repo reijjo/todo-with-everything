@@ -44,7 +44,7 @@ jobs:
       postgres:
         image: postgres:17
         ports:
-          - "5432:5432"
+          - "5433:5432"
         env:
           POSTGRES_USER: tester
           POSTGRES_PASSWORD: test
