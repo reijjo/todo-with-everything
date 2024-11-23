@@ -4,7 +4,8 @@ import { connectToDB } from "./utils/db/db";
 import app from "./app";
 import { config } from "./utils/config";
 
-const { PORT } = config;
+const { PORT, TEST_PORT } = config;
+const PORT_TO_USE = Bun.env.NODE_ENV === "test" ? TEST_PORT : PORT;
 
 const server = http.createServer(app);
 
@@ -12,9 +13,9 @@ const start = async () => {
   try {
     await connectToDB();
 
-    server.listen(PORT, () => {
+    server.listen(PORT_TO_USE, () => {
       console.log(yellowBright(`ENV = '${Bun.env.NODE_ENV}'`));
-      console.log(magentaBright(`Server on port ${PORT}.`));
+      console.log(magentaBright(`Server on port ${PORT_TO_USE}.`));
     });
   } catch (error: unknown) {
     throw error;
