@@ -11,6 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, ".env") });
 const BASE_URL =
   process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
 
+	const URL = process.env.NODE_ENV === 'cicd' ? process.env.CICD_URL : BASE_URL
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -31,7 +32,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: BASE_URL ?? "http://localhost:3001",
+    baseURL: URL ?? "http://localhost:3000",
 
     /* Video for failed tests */
     // video: "retain-on-failure",

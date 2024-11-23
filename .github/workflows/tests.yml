@@ -66,7 +66,7 @@ jobs:
       - name: Start App
         run: |
           cd server
-          bun run test &
+          bun run test:cicd &
           sleep 5
       #   run: |
       # - name: Start App
