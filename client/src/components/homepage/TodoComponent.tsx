@@ -18,7 +18,6 @@ export const TodoComponent = ({
 }: TodoComponentProps) => {
   const handleTodoDone = (e: ChangeEvent<HTMLInputElement>) => {
     updateTodo(todo.id, e.target.checked);
-    console.log("todo id done", todo.id);
   };
 
   return (
@@ -28,9 +27,7 @@ export const TodoComponent = ({
         className="todo-checkbox"
         checked={todo.done}
         onChange={handleTodoDone}
-        id="todo-checkbox"
         name="todo-checkbox"
-        // value={todo.done}
       />
       <a className={`todo-content-wrapper ${todo.done ? "todo-done" : ""}`}>
         <p className="todo-content">{todo.content}</p>
