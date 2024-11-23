@@ -48,32 +48,52 @@ jobs:
   e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        ports:
+          - "5433:5432"
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test_todos
+    env:
+      DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
+      CICD_URL: http://localhost:3000
+      PORT: 3000
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: lts/*
+          bun-version: latest
       - name: Install e2e-test Dependencies
         run: cd e2e-tests && npm install
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Build the app
+
+      - name: Build and Start App
         run: |
           cd client
-          npm install
-          npm run build
-      - name: Start localhost
-        run: |
-          npx serve -s client/dist &
-          npx wait-on http://localhost:3000
+          bun install
+
+          cd ../server
+          bun install
+          bun run build
+          bun run test:cicd &
+          sleep 5
+
       - name: Run e2e tests
-        run: cd e2e-tests && npm run test:cicd --reporter=html
+        run: |
+          cd e2e-tests
+          bun run test:cicd --reporter=html
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: e2e-tests/playwright-report/
           retention-days: 30
+
 ```
 
 This requires that you have some tests done and installed playwright etc.
