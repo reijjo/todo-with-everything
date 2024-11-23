@@ -40,15 +40,15 @@ jobs:
       PORT: 3000
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: lts/*
+          bun-version: latest
       - name: Install Backend Dependencies
-        run: cd server && npm install
+        run: cd server && bun install
       - name: Run Backend Tests
         run: |
           cd server
-          npm run test
+          bun run test
 
   e2e-tests:
     timeout-minutes: 60
