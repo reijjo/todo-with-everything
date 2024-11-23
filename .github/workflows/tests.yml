@@ -48,7 +48,7 @@ jobs:
         env:
           POSTGRES_USER: tester
           POSTGRES_PASSWORD: test
-          POSTGRES_DB: testtodos
+          POSTGRES_DB: test_todos
     env:
       DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
       CICD_URL: http://localhost:3000
