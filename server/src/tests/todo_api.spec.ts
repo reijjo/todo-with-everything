@@ -13,6 +13,8 @@ describe('Todo API', () => {
 
 		const { data } = response.body
 
+		console.log('00000000000000000')
 		console.log('data', data)
+		console.log('00000000000000000')
   });
 });
