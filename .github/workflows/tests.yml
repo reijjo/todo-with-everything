@@ -80,7 +80,7 @@ jobs:
         run: |
           cd server
           bun run test &
-          sleep 5
+          npx wait-on http://localhost:3000
       #   run: |
       # - name: Start App
       #   run: |
