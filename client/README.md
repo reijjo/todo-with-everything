@@ -7,8 +7,8 @@
 
 ```ts
 import "@testing-library/jest-dom";
-import { afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
 
 afterEach(() => {
   cleanup();
@@ -18,12 +18,13 @@ afterEach(() => {
 - Update `vite.config.ts`:
 
 ```ts
-import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "./",
   test: {
     globals: true,
     environment: "jsdom",
@@ -63,7 +64,7 @@ export default defineConfig({
 ```json
   "scripts": {
     ...
-    "test": "vitest"
+    "test": "NODE_ENV=test vitest"
   },
 ```
 

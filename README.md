@@ -11,7 +11,7 @@ Just a basic to-do list
 
 ### .env file
 
-Rename the `envEXAMPLE` file to `.env` in both `server` and `client` folders
+Rename the `envEXAMPLE` file to `.env` in `server`, `client` and `e2e-tests` folders
 
 - Add the missing values for your project
 
