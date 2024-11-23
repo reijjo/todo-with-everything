@@ -2,11 +2,12 @@ import { Sequelize } from "sequelize";
 import { config } from "../config";
 import { cyanBright } from "colorette";
 
-const { DATABASE_URL } = config;
+const { DATABASE_URL, DATABASE_TEST_URL } = config;
+const URL = Bun.env.NODE_ENV === "test" ? DATABASE_TEST_URL : DATABASE_URL;
 
-console.log("DATA", DATABASE_URL);
+console.log("DATA", URL);
 
-export const sequelize = new Sequelize(DATABASE_URL, {
+export const sequelize = new Sequelize(URL, {
   dialect: "postgres",
   logging: console.log,
   pool: {
