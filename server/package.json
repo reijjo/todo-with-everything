@@ -9,7 +9,8 @@
 		"build:back": "rm -rf out && bun build ./src/index.ts --outdir ./out --target node",
     "build": "bun run build:front && bun run build:back",
 		"prod": "NODE_ENV=production bun run out/index.js",
-    "test": "NODE_ENV=test bun run out/index.js",
+    "test": "NODE_ENV=test bun --watch run src/index.ts",
+    "test:cicd": "NODE_ENV=testcicd bun run out/index.js",
     "clean": "rm -rf node_modules .bun bun.lockb dist"
   },
   "devDependencies": {

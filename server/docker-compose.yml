@@ -15,6 +15,22 @@ services:
       - ./src/utils/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
 
+  postgres-test:
+    container_name: database_test
+    image: postgres:17
+    hostname: test-database
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: tester
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test_todos
+    volumes:
+      - ./database_test:/var/lib/postgresql/data
+      - ./src/utils/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4

@@ -5,7 +5,7 @@ import app from "./app";
 import { config } from "./utils/config";
 
 const { PORT, TEST_PORT } = config;
-const PORT_TO_USE = Bun.env.NODE_ENV === "test" ? TEST_PORT : PORT;
+const PORT_TO_USE = Bun.env.NODE_ENV === "testcicd" ? TEST_PORT : PORT;
 
 const server = http.createServer(app);
 
