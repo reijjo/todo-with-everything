@@ -12,6 +12,7 @@ const BASE_URL =
   process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
 
 	const URL = process.env.NODE_ENV === 'cicd' ? process.env.CICD_URL : BASE_URL
+	console.log("ENVV", process.env.NODE_ENV, URL)
 /**
  * See https://playwright.dev/docs/test-configuration.
  */

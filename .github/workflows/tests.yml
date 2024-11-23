@@ -40,6 +40,19 @@ jobs:
   e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: todos
+    env:
+      DATABASE_URL: postgres://tester:test@localhost:5432/todos
+      CICD_URL: http://localhost:3000
+      PORT: 3000
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
