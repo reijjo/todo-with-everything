@@ -3,7 +3,7 @@ import { config } from "../config";
 import { cyanBright } from "colorette";
 
 const { DATABASE_URL, DATABASE_TEST_URL } = config;
-const URL = Bun.env.NODE_ENV === "test" || Bun.env.NODE_ENV === "testcicd" ? DATABASE_TEST_URL : DATABASE_URL;
+const URL = Bun.env.NODE_ENV === "test" ? DATABASE_TEST_URL : DATABASE_URL;
 
 console.log("DATA", URL);
 
@@ -18,10 +18,6 @@ export const sequelize = new Sequelize(URL, {
     idle: 10000,
   },
 });
-
-// if (Bun.env.NODE_ENV === "test" || Bun.env.NODE_ENV === "testcicd") {
-// 	await sequelize.sync({ force: true });
-// }
 
 export const connectToDB = async () => {
   try {
