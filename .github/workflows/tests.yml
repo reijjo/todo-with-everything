@@ -71,7 +71,7 @@ jobs:
           cd ../e2e-tests && npm install
 
       - name: Install Playwright Browsers
-        run: npm install && npx playwright install --with-deps
+        run: npx playwright install --with-deps
 
       - name: Build & Start App
         env:
