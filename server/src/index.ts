@@ -7,6 +7,8 @@ import { config } from "./utils/config";
 const { PORT, TEST_PORT } = config;
 const PORT_TO_USE = Bun.env.NODE_ENV === "testcicd" ? TEST_PORT : PORT;
 
+console.log('port-to-use', PORT_TO_USE);
+
 const server = http.createServer(app);
 
 const start = async () => {

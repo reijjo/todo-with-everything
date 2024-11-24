@@ -11,10 +11,10 @@
     "prod": "NODE_ENV=production bun run out/index.js",
     "test": "NODE_ENV=test vitest",
     "test:cicd": "NODE_ENV=testcicd bun run out/index.js",
-    "clean": "rm -rf node_modules .bun bun.lockb dist out database database_test"
+    "clean": "rm -rf node_modules .bun bun.lockb dist out database database_test && bun install"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.12",
+    "@types/bun": "^1.1.13",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",

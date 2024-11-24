@@ -36,6 +36,7 @@ TodoModel.init(
     underscored: true,
     timestamps: true,
     modelName: "todo",
+		tableName: "todos",
   },
 );
 
