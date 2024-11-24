@@ -55,18 +55,15 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     env:
       DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
       CICD_URL: http://localhost:3000
       PORT: 3000
-
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-
       - name: Install Dependencies
         run: |
           cd client && bun install
@@ -74,26 +71,17 @@ jobs:
           cd ../e2e-tests && npm install
 
       - name: Install Playwright Browsers
-        run: |
-          npm install
-          npx playwright install --with-deps
+        run: npx playwright install --with-deps
 
       - name: Build App
         run: |
           cd server
           bun run build
 
-      - name: Start App & Run e2e Tests
+      - name: Run e2e tests
         run: |
-          cd server
-          bun run test:cicd &
-          cd ../e2e-tests
+          cd e2e-tests
           bun run test:cicd --reporter=html
-
-        # env:
-        #  DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
-        #  NODE_ENV: testcicd
-
       - uses: actions/upload-artifact@v4
         if: always()
         with:
