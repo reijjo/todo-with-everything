@@ -73,10 +73,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Build App
+      - name: Build & Start App
         run: |
           cd server
           bun run build
+          bun run test:cicd &
+          sleep 5
 
       - name: Run e2e tests
         run: |
