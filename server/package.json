@@ -3,7 +3,7 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production bun run src/index.ts",
+    "start": "NODE_ENV=test bun run src/index.ts",
     "dev": "NODE_ENV=development bun --watch run src/index.ts",
     "build:front": "rm -rf dist && cd ../client && rm -rf dist && VITE_NODE_ENV=testcicd npm run build && cp -r dist ../server",
     "build:back": "rm -rf out && bun build ./src/index.ts --outdir ./out --target node",
