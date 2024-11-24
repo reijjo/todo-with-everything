@@ -88,6 +88,10 @@ jobs:
           cd ../e2e-tests
           bun run test:cicd --reporter=html
 
+        env:
+         DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
+         NODE_ENV: testcicd
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
