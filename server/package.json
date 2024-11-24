@@ -5,11 +5,12 @@
   "scripts": {
     "start": "NODE_ENV=production bun run src/index.ts",
     "dev": "NODE_ENV=development bun --watch run src/index.ts",
-    "build:front": "rm -rf dist && cd ../client && rm -rf dist && npm run build && cp -r dist ../server",
+    "build:front": "rm -rf dist && cd ../client && rm -rf dist && VITE_NODE_ENV=testcicd npm run build && cp -r dist ../server",
     "build:back": "rm -rf out && bun build ./src/index.ts --outdir ./out --target node",
     "build": "bun run build:front && bun run build:back",
     "prod": "NODE_ENV=production bun run out/index.js",
     "test": "NODE_ENV=test vitest",
+		"test:ci": "bun run out/index.js",
     "test:cicd": "NODE_ENV=testcicd bun run out/index.js",
     "clean": "rm -rf node_modules .bun bun.lockb dist out database database_test && bun install"
   },

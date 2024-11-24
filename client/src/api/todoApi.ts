@@ -4,12 +4,14 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const TEST_URL = import.meta.env.VITE_TEST_URL;
-const URL = import.meta.env.NODE_ENV === "testcicd" ? TEST_URL : BASE_URL;
+const URL = import.meta.env.VITE_NODE_ENV === "testcicd" ? TEST_URL : BASE_URL;
 const baseUrl = `${URL}/api/todos`;
 
+console.log("ENV", import.meta.env.VITE_NODE_ENV);
 console.log("BASE_URL", BASE_URL);
 console.log("TEST_URL", TEST_URL);
 console.log("URL", URL);
+console.log("import.meta.env:", import.meta.env);
 
 interface TodoResponse {
   data: Todo[];
