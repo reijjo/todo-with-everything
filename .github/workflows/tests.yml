@@ -74,6 +74,10 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Build & Start App
+        env:
+          DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
+          NODE_ENV: testcicd
+
         run: |
           cd server
           bun run build
