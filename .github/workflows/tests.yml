@@ -71,23 +71,23 @@ jobs:
           cd ../e2e-tests && npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npm install && npx playwright install --with-deps
 
       - name: Build & Start App
         env:
           DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
+          DATABASE_TEST_URL: postgres://tester:test@localhost:5433/test_todos
           NODE_ENV: testcicd
-
         run: |
           cd server
           bun run build
-          bun run test:cicd &
+          bun run test:ci &
           sleep 5
 
       - name: Run e2e tests
         run: |
           cd e2e-tests
-          bun run test:cicd --reporter=html
+          bun run test:ci --reporter=html
       - uses: actions/upload-artifact@v4
         if: always()
         with:
