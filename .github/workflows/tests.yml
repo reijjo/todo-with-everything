@@ -58,10 +58,12 @@ jobs:
           DATABASE_URL: postgres://tester:test@localhost:5433/test_todos
           DATABASE_TEST_URL: postgres://tester:test@localhost:5433/test_todos
           NODE_ENV: test
+          PORT: 3001
         run: |
-         cd server
-          bun run test:ci &
+          cd server
+          bun run start &
           sleep 5
+          bun run test
 
   e2e-tests:
     timeout-minutes: 60
