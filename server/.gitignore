@@ -176,3 +176,7 @@ dist
 
 # Frontend build
 dist
+
+# database
+database
+**/database_test
