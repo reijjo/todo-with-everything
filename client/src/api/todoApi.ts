@@ -3,7 +3,13 @@ import { Todo } from "../utils/types";
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const baseUrl = `${BASE_URL}/api/todos`;
+const TEST_URL = import.meta.env.VITE_TEST_URL;
+const URL = import.meta.env.NODE_ENV === "testcicd" ? TEST_URL : BASE_URL;
+const baseUrl = `${URL}/api/todos`;
+
+console.log("BASE_URL", BASE_URL);
+console.log("TEST_URL", TEST_URL);
+console.log("URL", URL);
 
 interface TodoResponse {
   data: Todo[];
@@ -13,6 +19,7 @@ interface TodoResponse {
 
 const allTodos = async (): Promise<TodoResponse> => {
   const response = await axios.get(baseUrl);
+  console.log("GET TODOS URL", baseUrl);
   return response.data;
 };
 
