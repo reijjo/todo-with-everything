@@ -22,9 +22,7 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-  // Optionally, you can add additional cleanup here
   await TodoModel.destroy({ where: {} });
-
 });
 
 describe('Todo API', () => {
@@ -62,6 +60,21 @@ describe('Todo API', () => {
 			.expect('Content-Type', /application\/json/);
 
 			expect(response.body.data).toHaveLength(2)
+	})
+
+	it('set todo as done', async () => {
+		const todo1 = { content: 'new todo' };
+		const response = await api.post('/api/todos').send(todo1).expect(201);
+
+		const { data } = response.body;
+		expect(data.done).toBe(false);
+		console.log('DATAAAA"',data.id);
+
+		const updated = await api.patch(`/api/todos/${data.id}`).expect(200);
+		const { data: todoDone } = updated.body;
+		expect(todoDone.done).toBe(true);
+
+
 	})
 });
 
