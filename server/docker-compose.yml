@@ -27,7 +27,7 @@ services:
       POSTGRES_DB: test_todos
     volumes:
       - ./database_test:/var/lib/postgresql/data
-      - ./src/utils/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/utils/db/init_test.sql:/docker-entrypoint-initdb.d/init_test.sql
     restart: always
 
 
