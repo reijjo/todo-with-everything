@@ -3,7 +3,6 @@ import { describe, it, expect, afterEach } from "vitest";
 import app from '../app';
 import { beforeEach } from "node:test";
 import { TodoModel } from "../models";
-import exp from "node:constants";
 
 const api = supertest(app);
 
