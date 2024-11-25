@@ -8,8 +8,9 @@ import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
-const BASE_URL =
-  process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
+const BASE_URL = process.env.BASE_URL;
+	// const BASE_URL =
+  // process.env.NODE_ENV === "test" ? process.env.TEST_URL : process.env.BASE_URL;
 
 	const URL = process.env.NODE_ENV === 'testcicd' ? process.env.CICD_URL : BASE_URL
 	console.log("ENVV", process.env.NODE_ENV, URL)

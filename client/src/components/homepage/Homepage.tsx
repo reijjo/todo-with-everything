@@ -53,9 +53,9 @@ export const Homepage = () => {
     }
   };
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = async (id: number) => {
     try {
-      todoApi.deleteTodo(id);
+      await todoApi.deleteTodo(id);
       setList((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     } catch (error: unknown) {
       console.error("Error deleting todo", error);
