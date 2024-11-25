@@ -1,6 +1,6 @@
 import { Homepage } from "./Homepage";
 
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, test } from "vitest";
 
 describe("Homepage", () => {
@@ -23,16 +23,8 @@ describe("Homepage", () => {
 
   test("you can type on the input field", async () => {
     const input = screen.getByPlaceholderText(/what to do/i);
-    // const button = screen.getByRole("button", { name: /add/i });
 
     fireEvent.change(input, { target: { value: "Live Love Laugh" } });
     expect(input).toHaveValue("Live Love Laugh");
-
-    // fireEvent.click(button);
-
-    // await waitFor(() => {
-    //   expect(screen.getByText("Live Love Laugh")).toBeInTheDocument();
-    //   expect(input).toHaveValue("");
-    // });
   });
 });
