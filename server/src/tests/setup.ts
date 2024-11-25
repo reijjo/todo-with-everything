@@ -1,3 +1,4 @@
+
 import { beforeAll } from "vitest";
 
 
@@ -11,7 +12,21 @@ global.Bun = {
   }
 } as any;
 
-beforeAll(() => {
+beforeAll(async () => {
   // Any additional setup you need
+	// try {
+  //   await sequelize.authenticate();
+  //   console.log("Database connection established for tests.");
+  // } catch (error) {
+  //   console.error("Unable to connect to the database:", error);
+  // }
   console.log('Test environment configured with mock Bun');
 });
+
+// afterEach(async () => {
+// 	await sequelize.models.Todo.destroy({ where: {}, cascade: true });
+// })
+
+// afterAll(async () => {
+// 	await sequelize.close();
+// });
