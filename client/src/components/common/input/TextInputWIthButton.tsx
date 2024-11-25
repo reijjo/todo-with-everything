@@ -13,6 +13,7 @@ interface TextInputWithButtonProps
   id: string;
   label: string;
   showLabel?: boolean;
+  buttonText: string;
   onClick: (e: SyntheticEvent) => void;
 }
 
@@ -24,6 +25,7 @@ export const TextInputWithButton = ({
   width = "100%",
   height = "2.5rem",
   backgroundColor = "white",
+  buttonText,
   onClick,
   ...props
 }: TextInputWithButtonProps) => {
@@ -51,7 +53,7 @@ export const TextInputWithButton = ({
               backgroundColor: backgroundColor,
             }}
           />
-          <InputButton buttonText="add" onClick={onClick} />
+          <InputButton buttonText={buttonText} onClick={onClick} />
         </div>
       </div>
     </div>
