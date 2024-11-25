@@ -1,3 +1,85 @@
+# Testing
+## Install packages
+- `bun add -d vitest supertest @types/supertest`
+- Create `vitest.config.ts` file:
+```ts
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: {
+    environment: 'node',
+    setupFiles: ['./src/tests/setup.ts'], // This will run the Bun mock setup
+    globals: true
+  }
+});
+```
+
+- Create `src/tests/setup.ts` file:
+```ts
+import { beforeAll } from "vitest";
+
+
+global.Bun = {
+  env: {
+    NODE_ENV: 'test',
+    DATABASE_URL: 'postgres://tester:test@localhost:5432/todos',
+    DATABASE_TEST_URL: 'postgres://tester:test@localhost:5433/test_todos',
+    PORT: '3001',
+    TEST_PORT: '3000'
+  }
+} as any;
+
+beforeAll(() => {
+  // Any additional setup you need
+  console.log('Test environment configured with mock Bun');
+});
+```
+
+- Make first test  `src/tests/todo_api.spec.ts`:
+```ts
+import supertest from "supertest";
+import { describe, it, expect } from "vitest";
+import app from '../app';
+
+const api = supertest(app);
+
+describe('Todo API', () => {
+  it('todos are returned as json', async () => {
+   const response = await api
+      .get('/api/todos')
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+		const { data } = response.body
+
+		console.log('data', data)
+
+  });
+});
+```
+
+## Package.json
+### Add scripts to your `package.json`:
+```json
+  "scripts": {
+    "start": "NODE_ENV=test bun run src/index.ts",
+    "dev": "NODE_ENV=development bun --watch run src/index.ts",
+    "build:front": "rm -rf dist && cd ../client && rm -rf dist && VITE_NODE_ENV=testcicd npm run build && cp -r dist ../server",
+    "build:back": "rm -rf out && bun build ./src/index.ts --outdir ./out --target node",
+    "build": "bun run build:front && bun run build:back",
+    "prod": "NODE_ENV=production bun run out/index.js",
+    "test": "NODE_ENV=test vitest",
+		"test:ci": "bun run out/index.js",
+    "test:cicd": "NODE_ENV=testcicd bun run out/index.js",
+    "clean": "rm -rf node_modules .bun bun.lockb dist out database database_test && bun install"
+  },
+```
+- `test` is just to run test locally
+- `test:ci` for GitHub Actions
+- `test:cicd` for e2e-tests locally
+
+
+
 # Server
 
 ## Setup
