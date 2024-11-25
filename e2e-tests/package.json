@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-		"build:back": "cd ../server && bun build",
+		"build:back": "cd ../server && bun run build",
     "test": "NODE_ENV=test playwright test",
     "test:report": "playwright show-report",
     "test:ui": "bun run test -- --ui",
