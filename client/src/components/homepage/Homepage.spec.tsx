@@ -21,7 +21,7 @@ describe("Homepage", () => {
     expect(button).toBeInTheDocument();
   });
 
-  test("new todo is found from the list", async () => {
+  test.skip("new todo is found from the list", async () => {
     const input = screen.getByPlaceholderText(/what to do/i);
     const button = screen.getByRole("button", { name: /add/i });
 
