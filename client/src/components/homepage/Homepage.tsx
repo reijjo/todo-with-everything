@@ -75,6 +75,7 @@ export const Homepage = () => {
             value={todo}
             onChange={handleTodoChange}
             width="75%"
+            buttonText="add"
             onClick={createTodo}
           />
           <TodoList

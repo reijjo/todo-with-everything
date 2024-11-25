@@ -13,7 +13,6 @@ console.log("ENV", import.meta.env.VITE_NODE_ENV);
 console.log("BASE_URL", BASE_URL);
 console.log("TEST_URL", TEST_URL);
 console.log("URL", URL);
-console.log("import.meta.env:", import.meta.env);
 
 interface TodoResponse {
   data: Todo[];
