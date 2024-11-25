@@ -6,17 +6,6 @@ import { TodoModel } from "../models";
 
 const api = supertest(app);
 
-// beforeAll(async () => {
-//   // Any additional setup you need
-// 	try {
-//     await sequelize.authenticate();
-//     console.log("Database connection established for tests.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-//   console.log('Test environment configured with mock Bun');
-// });
-
 beforeEach(async () => {
 	await TodoModel.destroy({ where: {}, cascade: true });
 })
