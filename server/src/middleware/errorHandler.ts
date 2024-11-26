@@ -10,8 +10,10 @@ export const errorHandler = (
   console.error("Error caught:", error);
 
   if (error instanceof ConnectionRefusedError) {
+		console.log("Database connection refused.")
     res.status(500).json({
-      error: "Database connection refused. Check that database is running.",
+      error: "Check that database is running.",
+			details: error.message
     });
     return;
   }

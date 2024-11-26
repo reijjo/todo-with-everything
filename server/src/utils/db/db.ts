@@ -28,13 +28,13 @@ export const connectToDB = async () => {
     await sequelize.authenticate();
     console.log(cyanBright("Connected to database."));
 
-		// if (isTestEnv) {
-    //   console.log(yellowBright("Test environment detected - syncing database..."));
-    //   await sequelize.sync({ force: true }); // This will drop and recreate tables
-    //   console.log(cyanBright("Test database synced."));
-    // }
+
   } catch (error: unknown) {
     console.error("Unable to connect to the database:", error);
-    return process.exit(1);
+		if (error instanceof Error) {
+			throw error
+		} else {
+			throw new Error('Database connection failed: ' + String(error));
+		}
   }
-};
+}
