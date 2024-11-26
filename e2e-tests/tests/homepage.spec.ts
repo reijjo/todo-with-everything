@@ -15,8 +15,16 @@ test.describe("Homepage", () => {
     await expect(heading).toHaveText(/to-do list/i);
   });
 
-  test("finds the links in the navbar", async ({ page }) => {
-    const navlinkHome = page.locator("a:has-text('Home')");
-    await expect(navlinkHome).toBeVisible();
-  });
+
+	test('adds new todo to list', async ({ page }) => {
+		const newTodo = page.getByPlaceholder(/what to do/i);
+		const addButton = page.getByRole('button', { name: 'Add' });
+		const todoList = page.getByTestId('todo-list');
+
+		await newTodo.fill('playwright here');
+		await addButton.click();
+
+		await expect(newTodo).toHaveValue('');
+		await expect(todoList).toContainText('playwright here');
+	});
 });

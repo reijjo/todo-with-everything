@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-		"build:back": "cd ../server && bun run build",
+    "build:back": "cd ../server && bun run build",
     "test": "NODE_ENV=test playwright test",
     "test:report": "playwright show-report",
     "test:ui": "bun run test -- --ui",
     "clean": "rm -rf node_modules && rm package-lock.json",
     "install": "npx playwright install",
-		"test:ci": "playwright test",
+    "test:ci": "playwright test",
     "test:cicd": "NODE_ENV=testcicd playwright test"
   },
   "keywords": [],
@@ -18,9 +18,11 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.48.2",
+    "@types/bun": "^1.1.14",
     "@types/node": "^22.9.0"
   },
   "dependencies": {
+    "bun": "^1.1.37",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2"
   }
