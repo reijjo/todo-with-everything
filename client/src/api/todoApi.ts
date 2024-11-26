@@ -27,7 +27,7 @@ const allTodos = async (): Promise<TodoResponse> => {
 };
 
 const createTodo = async (content: string): Promise<TodoResponse> => {
-  console.log("API", content);
+  console.log("API", baseUrl);
   const response = await axios.post(baseUrl, { content });
   return response.data;
 };

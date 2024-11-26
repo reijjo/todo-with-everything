@@ -12,7 +12,7 @@ interface TodoListProps {
 
 export const TodoList = ({ list, updateTodo, deleteTodo }: TodoListProps) => {
   return (
-    <div className="todo-list">
+    <div className="todo-list" data-testid="todo-list">
       {list.map((todo) => (
         <TodoComponent
           key={todo.id}

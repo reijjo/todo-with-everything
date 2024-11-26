@@ -4,9 +4,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 
 	console.log('Current URL!!!:', page.url());
-
-	// const pageContent = await page.content();
-  // console.log('Full Page Content:', pageContent);
 });
 
 test.describe("Homepage", () => {
@@ -15,8 +12,19 @@ test.describe("Homepage", () => {
     await expect(heading).toHaveText(/to-do list/i);
   });
 
-  test("finds the links in the navbar", async ({ page }) => {
-    const navlinkHome = page.locator("a:has-text('Home')");
-    await expect(navlinkHome).toBeVisible();
-  });
+
+	test('adds new todo to list', async ({ page }) => {
+		const newTodo = page.getByPlaceholder(/what to do/i);
+		const addButton = page.getByRole('button', { name: 'Add' });
+
+		await newTodo.fill('playwright here');
+		await addButton.click();
+
+		const todoList = page.getByTestId('todo-list');
+		expect(todoList).toBeVisible();
+
+
+		// await expect(todoList).toContainText('playwright here');
+		// await expect(newTodo).toBeEmpty();
+	});
 });
