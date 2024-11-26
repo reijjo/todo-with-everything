@@ -16,14 +16,15 @@ test.describe("Homepage", () => {
 	test('adds new todo to list', async ({ page }) => {
 		const newTodo = page.getByPlaceholder(/what to do/i);
 		const addButton = page.getByRole('button', { name: 'Add' });
-		const todoList = page.getByTestId('todo-list');
-
-		expect(todoList).toBeVisible();
 
 		await newTodo.fill('playwright here');
 		await addButton.click();
 
+		const todoList = page.getByTestId('todo-list');
+		expect(todoList).toBeVisible();
+
+
 		await expect(todoList).toContainText('playwright here');
-		await expect(newTodo).toHaveValue('');
+		await expect(newTodo).toBeEmpty();
 	});
 });
