@@ -5,9 +5,9 @@ type EnvConfig = {
 	DATABASE_TEST_URL: string;
 };
 
-const env = typeof Bun !== "undefined" ? Bun.env : process.env;
+// const env = typeof Bun !== "undefined" ? Bun.env : process.env;
 
-const { PORT, TEST_PORT, DATABASE_URL, DATABASE_TEST_URL } = env;
+const { PORT, TEST_PORT, DATABASE_URL, DATABASE_TEST_URL } = Bun.env;
 
 
 export const config: EnvConfig = {
