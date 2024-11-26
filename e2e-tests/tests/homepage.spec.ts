@@ -23,7 +23,7 @@ test.describe("Homepage", () => {
 		await newTodo.fill('playwright here');
 		await addButton.click();
 
-		// await expect(todoList).toContainText('playwright here');
-		// await expect(newTodo).toHaveValue('');
+		await expect(todoList).toContainText('playwright here');
+		await expect(newTodo).toHaveValue('');
 	});
 });
