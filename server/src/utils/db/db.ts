@@ -4,7 +4,7 @@ import { cyanBright, yellowBright } from "colorette";
 
 const { DATABASE_URL, DATABASE_TEST_URL } = config;
 // const isTestEnv = Bun.env.NODE_ENV === "test" || Bun.env.NODE_ENV === "testcicd"
-const URL =  Bun.env.NODE_ENV === "test" ? DATABASE_TEST_URL : DATABASE_URL;
+const URL =  Bun.env.NODE_ENV === "test" || Bun.env.NODE_ENV === "testcicd" ? DATABASE_TEST_URL : DATABASE_URL;
 
 console.log(yellowBright("Environment:"), Bun.env.NODE_ENV);
 console.log(yellowBright("Using Database URL:"), URL);
