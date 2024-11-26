@@ -16,7 +16,9 @@ test.describe("Homepage", () => {
 	test('adds new todo to list', async ({ page }) => {
 		const newTodo = page.getByPlaceholder(/what to do/i);
 		const addButton = page.getByRole('button', { name: 'Add' });
-		// const todoList = page.getByTestId('todo-list');
+		const todoList = page.getByTestId('todo-list');
+
+		expect(todoList).toBeVisible();
 
 		await newTodo.fill('playwright here');
 		await addButton.click();
