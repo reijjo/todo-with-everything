@@ -57,12 +57,23 @@ describe('Todo API', () => {
 
 		const { data } = response.body;
 		expect(data.done).toBe(false);
-		console.log('DATAAAA"',data.id);
 
 		const updated = await api.patch(`/api/todos/${data.id}`).expect(200);
 		const { data: todoDone } = updated.body;
 		expect(todoDone.done).toBe(true);
+	})
 
+	it('delete todo', async () => {
+		const todo1 = { content: 'new todo' };
+		await api.post('/api/todos').send(todo1).expect(201);
+
+		const response = await api.get('/api/todos').expect(200);
+		expect(response.body.data).toHaveLength(1);
+
+		await api.delete(`/api/todos/${response.body.data[0].id}`).expect(200);
+
+		const deleted = await api.get('/api/todos').expect(200);
+		expect(deleted.body.data).toHaveLength(0)
 
 	})
 });

@@ -21,7 +21,18 @@ const start = async () => {
     });
   } catch (error: unknown) {
     throw error;
+		// console.error('Failed to start server', error);
+    // return process.exit(1);
+
   }
 };
 
-start();
+process.on("uncaughtException", (error) => {
+	console.error("Uncaught exception:", error);
+	process.exit(1);
+});
+
+start().catch((error) => {
+	console.error('Failed to start server', error);
+	return process.exit(1);
+})
