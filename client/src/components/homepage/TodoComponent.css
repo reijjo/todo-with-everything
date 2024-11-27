@@ -13,6 +13,12 @@
   border-bottom: 1px solid var(--primary);
 }
 
+.single-todo-label {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+}
+
 .single-todo:first-child {
   border-top: 1px solid var(--primary);
 }

@@ -22,16 +22,18 @@ export const TodoComponent = ({
 
   return (
     <div className="single-todo">
-      <input
-        type="checkbox"
-        className="todo-checkbox"
-        checked={todo.done}
-        onChange={handleTodoDone}
-        name="todo-checkbox"
-      />
-      <a className={`todo-content-wrapper ${todo.done ? "todo-done" : ""}`}>
-        <p className="todo-content">{todo.content}</p>
-      </a>
+      <label className="single-todo-label">
+        <input
+          type="checkbox"
+          className="todo-checkbox"
+          checked={todo.done}
+          onChange={handleTodoDone}
+          name="todo-checkbox"
+        />
+        <a className={`todo-content-wrapper ${todo.done ? "todo-done" : ""}`}>
+          <p className="todo-content">{todo.content}</p>
+        </a>
+      </label>
       <button
         className="todo-delete"
         disabled={!todo.done}
