@@ -6,6 +6,7 @@ export const store = configureStore({
   reducer: {
     todos: todosReducer,
   },
+  devTools: import.meta.env.NODE_ENV !== "production",
 });
 
 export type AppStore = typeof store;
