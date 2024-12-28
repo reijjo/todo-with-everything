@@ -1,11 +1,8 @@
+import axios from "axios";
+
 import { config } from "../utils/config";
 import { Todo } from "../utils/types";
 
-import axios from "axios";
-
-// const BASE_URL = import.meta.env.VITE_BASE_URL;
-// const TEST_URL = import.meta.env.VITE_TEST_URL;
-// const URL = import.meta.env.VITE_NODE_ENV === "testcicd" ? TEST_URL : BASE_URL;
 const { BASE_URL, TEST_URL, URL } = config;
 const baseUrl = `${URL}/api/todos`;
 

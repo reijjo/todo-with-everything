@@ -1,16 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { apiSlice } from "../features/api/apiSlice";
 import todosReducer from "../features/todos/todosSlice";
 
 export const store = configureStore({
   reducer: {
     todos: todosReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: import.meta.env.NODE_ENV !== "production",
 });
 
 export type AppStore = typeof store;
-// Infer the `AppDispatch` type from the store itself
-export type AppDispatch = typeof store.dispatch;
-// Same for the `RootState` type
-export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch; // Infer the `AppDispatch` type from the store itself
+export type RootState = ReturnType<typeof store.getState>; // Same for the `RootState` type
