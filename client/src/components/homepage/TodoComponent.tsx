@@ -1,23 +1,54 @@
 import "./TodoComponent.css";
 
+import { useState } from "react";
+
+import {
+  findTodoById,
+  removeTodo,
+  updateTodoStatus,
+} from "../../features/todos/todosSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Todo } from "../../utils/types";
 import { Icon } from "../common/icon/Icon";
 
-import { ChangeEvent } from "react";
-
 interface TodoComponentProps {
   todo: Todo;
-  updateTodo: (id: number, done: boolean) => void;
-  deleteTodo: (id: number) => void;
 }
 
-export const TodoComponent = ({
-  todo,
-  updateTodo,
-  deleteTodo,
-}: TodoComponentProps) => {
-  const handleTodoDone = (e: ChangeEvent<HTMLInputElement>) => {
-    updateTodo(todo.id, e.target.checked);
+export const TodoComponent = ({ todo }: TodoComponentProps) => {
+  const [todoStatus, setTodoStatus] = useState<"idle" | "pending">("idle");
+  // Finds the todo by ID
+  const foundTodo = useAppSelector((state) => findTodoById(state, todo.id));
+  const dispatch = useAppDispatch();
+
+  const handleTodoDone = async () => {
+    if (todoStatus === "pending") return;
+    if (!foundTodo) return;
+
+    try {
+      setTodoStatus("pending");
+      await dispatch(
+        updateTodoStatus({ id: foundTodo.id, done: !foundTodo.done }),
+      ).unwrap();
+    } catch (error: unknown) {
+      console.log("Error updating todo", error);
+    } finally {
+      setTodoStatus("idle");
+    }
+  };
+
+  const handleTodoDelete = async () => {
+    if (todoStatus === "pending") return;
+    if (!foundTodo) return;
+
+    try {
+      setTodoStatus("pending");
+      await dispatch(removeTodo(foundTodo.id)).unwrap();
+    } catch (error: unknown) {
+      console.log("Error deleting todo", error);
+    } finally {
+      setTodoStatus("idle");
+    }
   };
 
   return (
@@ -37,7 +68,7 @@ export const TodoComponent = ({
       <button
         className="todo-delete"
         disabled={!todo.done}
-        onClick={() => deleteTodo(todo.id)}
+        onClick={handleTodoDelete}
       >
         <Icon name="trash" strokeWidth={2} />
       </button>

@@ -23,7 +23,7 @@ input[type="text"] {
 
   &:focus {
     border-color: transparent;
-    outline: 2px solid var(--accent1);
+    outline: 2px solid var(--secondary);
     /* outline-offset: 1px; */
   }
 }

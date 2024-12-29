@@ -1,64 +1,38 @@
 import "./Homepage.css";
 
-import { todoApi } from "../../api/todoApi";
-import { Todo } from "../../utils/types";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+
+import { addNewTodo } from "../../features/todos/todosSlice";
+import { useAppDispatch } from "../../store/hooks";
 import { Container, TextInputWithButton } from "../common";
 import { TodoList } from "./TodoList";
 
-import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
-
 export const Homepage = () => {
-  const [list, setList] = useState<Todo[]>([]);
   const [todo, setTodo] = useState("");
+  const [addTodoStatus, setAddTodoStatus] = useState<"idle" | "pending">(
+    "idle",
+  );
 
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        const response = await todoApi.allTodos();
-        setList(response.data);
-        console.log("THIS IS WHERE THE LIST IS FETCHED!");
-      } catch (error: unknown) {
-        console.error("Error fetching all todos", error);
-      }
-    };
-    fetchList();
-  }, []);
+  const dispatch = useAppDispatch();
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
-    console.log("todo", todo);
   };
 
   const createTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
 
+    if (addTodoStatus === "pending") return;
+    if (!todo.trim()) return;
+
     try {
-      const response = await todoApi.createTodo(todo);
-      console.log("response", response.data);
-      setList(list.concat(response.data));
+      setAddTodoStatus("pending");
+      await dispatch(addNewTodo({ content: todo })).unwrap(); // Unwrap only resolves the promise if there is no error
       setTodo("");
     } catch (error: unknown) {
-      console.error("Error creating todo", error);
-    }
-  };
-
-  const updateTodo = async (id: number, done: boolean) => {
-    try {
-      await todoApi.updateTodo(id);
-      setList((prevTodos) =>
-        prevTodos.map((todo) => (todo.id === id ? { ...todo, done } : todo)),
-      );
-    } catch (error: unknown) {
-      console.error("Error updating todo", error);
-    }
-  };
-
-  const deleteTodo = async (id: number) => {
-    try {
-      await todoApi.deleteTodo(id);
-      setList((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-    } catch (error: unknown) {
-      console.error("Error deleting todo", error);
+      console.log("Error creating todo", error);
+    } finally {
+      setAddTodoStatus("idle");
     }
   };
 
@@ -78,12 +52,7 @@ export const Homepage = () => {
             buttonText="add"
             onClick={createTodo}
           />
-          <TodoList
-            list={list}
-            setList={setList}
-            updateTodo={updateTodo}
-            deleteTodo={deleteTodo}
-          />
+          <TodoList />
         </Container>
       </div>
     </main>

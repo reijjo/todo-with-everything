@@ -11,7 +11,7 @@ export interface StyleProps {
 }
 
 export interface Todo {
-  id: number;
+  id: number | string;
   content: string;
   done: boolean;
 }
