@@ -5,13 +5,13 @@ import { DataTypes, Model, type Optional } from "sequelize";
 export interface TodoInput extends Optional<Todo, "id" | "done"> {}
 
 class TodoModel extends Model<Todo, TodoInput> implements Todo {
-  id!: number;
-  content!: string;
-  done!: boolean;
+	declare id: number;
+  declare content: string;
+  declare done: boolean;
 
   // Timestamps
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 TodoModel.init(
