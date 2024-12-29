@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { apiSlice } from "../features/api/apiSlice";
-import todosReducer from "../features/todos/todosSlice";
+import todoReducer from "../features/todos/todosSlice";
 
 export const store = configureStore({
   reducer: {
-    todos: todosReducer,
+    todos: todoReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

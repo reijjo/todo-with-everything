@@ -2,18 +2,18 @@ import "./Homepage.css";
 
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 
-import { addNewTodo } from "../../features/todos/todosSlice";
-import { useAppDispatch } from "../../store/hooks";
+// import { addNewTodo } from "../../features/todos/todosSlice";
+// import { useAppDispatch } from "../../store/hooks";
 import { Container, TextInputWithButton } from "../common";
 import { TodoList } from "./TodoList";
 
 export const Homepage = () => {
   const [todo, setTodo] = useState("");
-  const [addTodoStatus, setAddTodoStatus] = useState<"idle" | "pending">(
-    "idle",
-  );
+  // const [addTodoStatus, setAddTodoStatus] = useState<"idle" | "pending">(
+  //   "idle",
+  // );
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
@@ -22,18 +22,18 @@ export const Homepage = () => {
   const createTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (addTodoStatus === "pending") return;
+    // if (addTodoStatus === "pending") return;
     if (!todo.trim()) return;
-
-    try {
-      setAddTodoStatus("pending");
-      await dispatch(addNewTodo({ content: todo })).unwrap(); // Unwrap only resolves the promise if there is no error
-      setTodo("");
-    } catch (error: unknown) {
-      console.log("Error creating todo", error);
-    } finally {
-      setAddTodoStatus("idle");
-    }
+    console.log("create todo", todo);
+    // try {
+    //   setAddTodoStatus("pending");
+    //   await dispatch(addNewTodo({ content: todo })).unwrap(); // Unwrap only resolves the promise if there is no error
+    //   setTodo("");
+    // } catch (error: unknown) {
+    //   console.log("Error creating todo", error);
+    // } finally {
+    //   setAddTodoStatus("idle");
+    // }
   };
 
   return (

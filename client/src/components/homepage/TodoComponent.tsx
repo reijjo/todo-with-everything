@@ -1,13 +1,7 @@
 import "./TodoComponent.css";
 
-import { useState } from "react";
-
-import {
-  findTodoById,
-  removeTodo,
-  updateTodoStatus,
-} from "../../features/todos/todosSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { findTodoById } from "../../features/todos/todosSlice";
+import { useAppSelector } from "../../store/hooks";
 import { Todo } from "../../utils/types";
 import { Icon } from "../common/icon/Icon";
 
@@ -16,39 +10,40 @@ interface TodoComponentProps {
 }
 
 export const TodoComponent = ({ todo }: TodoComponentProps) => {
-  const [todoStatus, setTodoStatus] = useState<"idle" | "pending">("idle");
-  // Finds the todo by ID
   const foundTodo = useAppSelector((state) => findTodoById(state, todo.id));
-  const dispatch = useAppDispatch();
+
+  console.log("foundTodo", foundTodo);
 
   const handleTodoDone = async () => {
-    if (todoStatus === "pending") return;
     if (!foundTodo) return;
 
-    try {
-      setTodoStatus("pending");
-      await dispatch(
-        updateTodoStatus({ id: foundTodo.id, done: !foundTodo.done }),
-      ).unwrap();
-    } catch (error: unknown) {
-      console.log("Error updating todo", error);
-    } finally {
-      setTodoStatus("idle");
-    }
+    console.log("update", foundTodo);
+
+    // try {
+    //   setTodoStatus("pending");
+    //   await dispatch(
+    //     updateTodoStatus({ id: foundTodo.id, done: !foundTodo.done }),
+    //   ).unwrap();
+    // } catch (error: unknown) {
+    //   console.log("Error updating todo", error);
+    // } finally {
+    //   setTodoStatus("idle");
+    // }
   };
 
   const handleTodoDelete = async () => {
-    if (todoStatus === "pending") return;
     if (!foundTodo) return;
 
-    try {
-      setTodoStatus("pending");
-      await dispatch(removeTodo(foundTodo.id)).unwrap();
-    } catch (error: unknown) {
-      console.log("Error deleting todo", error);
-    } finally {
-      setTodoStatus("idle");
-    }
+    console.log("delete", todo.id);
+
+    // try {
+    //   setTodoStatus("pending");
+    //   await dispatch(removeTodo(foundTodo.id)).unwrap();
+    // } catch (error: unknown) {
+    //   console.log("Error deleting todo", error);
+    // } finally {
+    //   setTodoStatus("idle");
+    // }
   };
 
   return (

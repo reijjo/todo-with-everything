@@ -21,7 +21,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": ".", // Makes paths relative to the root of your project
+    "paths": {
+      "@/*": ["src/*"] // Maps `@/` to the `src` folder
+    }
   },
   "include": ["src"]
 }
