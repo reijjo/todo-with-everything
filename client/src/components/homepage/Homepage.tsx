@@ -2,12 +2,8 @@ import "./Homepage.css";
 
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 
-// Random ID generator
 import { addNewTodo } from "../../features/todos/todosSlice";
 import { useAppDispatch } from "../../store/hooks";
-// import { todoApi } from "../../api/todoApi";
-// import { useAppSelector } from "../../store/hooks";
-// import { Todo } from "../../utils/types";
 import { Container, TextInputWithButton } from "../common";
 import { TodoList } from "./TodoList";
 
@@ -21,22 +17,23 @@ export const Homepage = () => {
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
-    console.log("todo", todo);
   };
 
   const createTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
 
+    if (addTodoStatus === "pending") return;
+    if (!todo.trim()) return;
+
     try {
       setAddTodoStatus("pending");
-      await dispatch(addNewTodo({ content: todo })).unwrap();
+      await dispatch(addNewTodo({ content: todo })).unwrap(); // Unwrap only resolves the promise if there is no error
+      setTodo("");
     } catch (error: unknown) {
       console.log("Error creating todo", error);
     } finally {
       setAddTodoStatus("idle");
     }
-
-    setTodo("");
   };
 
   return (

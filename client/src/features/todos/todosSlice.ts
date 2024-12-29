@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { RootState } from "../../store/store";
@@ -18,7 +18,14 @@ interface TodoApiResponse {
   message: string;
 }
 
+interface TodoCreateResponse {
+  data: Todo;
+  ok: boolean;
+  message: string;
+}
+
 type NewTodo = Pick<Todo, "content">;
+type UpdateTodo = Pick<Todo, "id" | "done">;
 
 const { URL } = config;
 
@@ -27,7 +34,6 @@ export const fetchTodos = createAppAsyncThunk(
   "todos/fetchTodos",
   async () => {
     const response = await axios.get<TodoApiResponse>(`${URL}/api/todos`);
-    console.log("response", response.data);
     return response.data.data;
   },
   {
@@ -43,8 +49,30 @@ export const fetchTodos = createAppAsyncThunk(
 export const addNewTodo = createAppAsyncThunk(
   "todos/addNewTodo",
   async (initialTodo: NewTodo) => {
-    const response = await axios.post<Todo>(`${URL}/api/todos`, initialTodo);
-    return response.data;
+    const response = await axios.post<TodoCreateResponse>(
+      `${URL}/api/todos`,
+      initialTodo,
+    );
+    return response.data.data;
+  },
+);
+
+export const updateTodoStatus = createAppAsyncThunk(
+  "todos/updateTodoStatus",
+  async (todo: UpdateTodo) => {
+    const response = await axios.patch<TodoCreateResponse>(
+      `${URL}/api/todos/${todo.id}`,
+      { done: !todo.done },
+    );
+    return response.data.data;
+  },
+);
+
+export const removeTodo = createAppAsyncThunk(
+  "todos/removeTodo",
+  async (id: number | string) => {
+    await axios.delete(`${URL}/api/todos/${id}`);
+    return id;
   },
 );
 
@@ -58,20 +86,7 @@ const initialState: TodosState = {
 const todosSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {
-    updateTodo(state, action: PayloadAction<Todo>) {
-      const { id, done } = action.payload;
-      const existingTodo = state.todos.find((todo) => todo.id === id); // Finds the correct todo by ID
-
-      if (existingTodo) {
-        existingTodo.done = done;
-      }
-    },
-    deleteTodo(state, action: PayloadAction<number | string>) {
-      const id = action.payload;
-      state.todos = state.todos.filter((todo) => todo.id !== id);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.pending, (state) => {
@@ -87,12 +102,18 @@ const todosSlice = createSlice({
       })
       .addCase(addNewTodo.fulfilled, (state, action) => {
         state.todos.push(action.payload);
+      })
+      .addCase(updateTodoStatus.fulfilled, (state, action) => {
+        const todo = state.todos.find((todo) => todo.id === action.payload.id);
+        if (todo) {
+          todo.done = action.payload.done;
+        }
+      })
+      .addCase(removeTodo.fulfilled, (state, action) => {
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
       });
   },
 });
-
-// Export the action creator with the same name
-export const { updateTodo, deleteTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;
 

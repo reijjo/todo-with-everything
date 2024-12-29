@@ -1,9 +1,11 @@
 import "./TodoComponent.css";
 
+import { useState } from "react";
+
 import {
-  deleteTodo,
   findTodoById,
-  updateTodo,
+  removeTodo,
+  updateTodoStatus,
 } from "../../features/todos/todosSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { Todo } from "../../utils/types";
@@ -14,26 +16,38 @@ interface TodoComponentProps {
 }
 
 export const TodoComponent = ({ todo }: TodoComponentProps) => {
+  const [todoStatus, setTodoStatus] = useState<"idle" | "pending">("idle");
   // Finds the todo by ID
   const foundTodo = useAppSelector((state) => findTodoById(state, todo.id));
   const dispatch = useAppDispatch();
 
-  const handleTodoDone = () => {
-    // If the foundTodo exists, dispatch the updateTodo action
-    if (foundTodo) {
-      dispatch(
-        updateTodo({
-          ...foundTodo,
-          done: !foundTodo.done,
-        }),
-      );
+  const handleTodoDone = async () => {
+    if (todoStatus === "pending") return;
+    if (!foundTodo) return;
+
+    try {
+      setTodoStatus("pending");
+      await dispatch(
+        updateTodoStatus({ id: foundTodo.id, done: !foundTodo.done }),
+      ).unwrap();
+    } catch (error: unknown) {
+      console.log("Error updating todo", error);
+    } finally {
+      setTodoStatus("idle");
     }
   };
 
-  const handleTodoDelete = () => {
-    // If the foundTodo exists, dispatch the deleteTodo action
-    if (foundTodo) {
-      dispatch(deleteTodo(foundTodo.id));
+  const handleTodoDelete = async () => {
+    if (todoStatus === "pending") return;
+    if (!foundTodo) return;
+
+    try {
+      setTodoStatus("pending");
+      await dispatch(removeTodo(foundTodo.id)).unwrap();
+    } catch (error: unknown) {
+      console.log("Error deleting todo", error);
+    } finally {
+      setTodoStatus("idle");
     }
   };
 
