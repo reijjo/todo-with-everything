@@ -21,17 +21,18 @@ Rename the `envEXAMPLE` file to `.env` in `server`, `client` and `e2e-tests` fol
 
 - localhost:5173
 
+### PostgreSQL & pgAdmin
+
+`docker compose up` in the server folder
+
+- pgAdmin at localhost:5050
+
 ### Backend
 
 `npm run dev` in the server folder
 
 - localhost:3001
 
-### PostgreSQL & pgAdmin
-
-`docker compose up` in the server folder
-
-- pgAdmin at localhost:5050
 
 ## Run tests
 

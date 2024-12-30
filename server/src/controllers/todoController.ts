@@ -6,7 +6,9 @@ import type { Request, Response } from "express";
 // Get all todos
 export const allTodos = async (_req: Request, res: Response): Promise<void> => {
   try {
-    const todos = await TodoModel.findAll({});
+    const todos = await TodoModel.findAll({
+			order: [["createdAt", "ASC"]],
+		});
     res.status(200).json({ data: todos, ok: true });
   } catch (error: unknown) {
     console.error("Error fetching all todos", error);

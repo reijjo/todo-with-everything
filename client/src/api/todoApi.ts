@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { config } from "../utils/config";
-import { Todo } from "../utils/types";
+import { TodosResponse } from "../utils/types";
 
 const { BASE_URL, TEST_URL, URL } = config;
 const baseUrl = `${URL}/api/todos`;
@@ -11,19 +11,13 @@ console.log("BASE_URL", BASE_URL);
 console.log("TEST_URL", TEST_URL);
 console.log("URL", URL);
 
-interface TodoResponse {
-  data: Todo[];
-  ok: boolean;
-  message: string;
-}
-
-const allTodos = async (): Promise<TodoResponse> => {
+const allTodos = async (): Promise<TodosResponse> => {
   const response = await axios.get(baseUrl);
   console.log("GET TODOS URL", baseUrl);
   return response.data;
 };
 
-const createTodo = async (content: string): Promise<TodoResponse> => {
+const createTodo = async (content: string): Promise<TodosResponse> => {
   console.log("API", baseUrl);
   const response = await axios.post(baseUrl, { content });
   return response.data;

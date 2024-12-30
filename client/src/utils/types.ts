@@ -15,3 +15,9 @@ export interface Todo {
   content: string;
   done: boolean;
 }
+
+export interface TodosResponse {
+  data: Todo[];
+  ok: boolean;
+  message: string;
+}
