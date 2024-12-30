@@ -19,7 +19,10 @@ export const apiSlice = createApi({
     // The return value is a `Todo[]` array and it takes no arguments
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos", // The endpoint URL
-      providesTags: ["Todo"], // Define the tags for the cache
+      providesTags: (result = []) => [
+        "Todo",
+        ...result.map(({ id }) => ({ type: "Todo", id }) as const), // Add tags for each todo item
+      ],
       // We need the transformResponse because our API returns an object with a `data` key
       transformResponse: (response: TodosResponse) => {
         return response.data;
@@ -27,6 +30,7 @@ export const apiSlice = createApi({
     }),
     getTodoById: builder.query<Todo, number>({
       query: (id) => `/todos/${id}`,
+      providesTags: (_result, _error, arg) => [{ type: "Todo", id: arg }], // Minimizes the backend usage
     }),
     addNewTodo: builder.mutation<Todo, Partial<Todo>>({
       query: (content) => ({
@@ -42,14 +46,14 @@ export const apiSlice = createApi({
         method: "PATCH",
         body: todo,
       }),
-      invalidatesTags: ["Todo"], // Tells the RTK Query that cache data is outdated and makes a refetch
+      invalidatesTags: (_result, _error, { id }) => [{ type: "Todo", id }],
     }),
     deleteTodo: builder.mutation<void, number>({
       query: (id) => ({
         url: `/todos/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Todo"],
+      invalidatesTags: (_result, _error, id) => [{ type: "Todo", id }],
     }),
   }),
 });
