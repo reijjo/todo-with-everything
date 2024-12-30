@@ -2,6 +2,7 @@ import "./Homepage.css";
 
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 
+import { useAddNewTodoMutation } from "../../features/api/apiSlice";
 // import { addNewTodo } from "../../features/todos/todosSlice";
 // import { useAppDispatch } from "../../store/hooks";
 import { Container, TextInputWithButton } from "../common";
@@ -9,11 +10,7 @@ import { TodoList } from "./TodoList";
 
 export const Homepage = () => {
   const [todo, setTodo] = useState("");
-  // const [addTodoStatus, setAddTodoStatus] = useState<"idle" | "pending">(
-  //   "idle",
-  // );
-
-  // const dispatch = useAppDispatch();
+  const [addNewTodo, { isLoading }] = useAddNewTodoMutation();
 
   const handleTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
@@ -21,19 +18,14 @@ export const Homepage = () => {
 
   const createTodo = async (e: SyntheticEvent) => {
     e.preventDefault();
-
-    // if (addTodoStatus === "pending") return;
     if (!todo.trim()) return;
-    console.log("create todo", todo);
-    // try {
-    //   setAddTodoStatus("pending");
-    //   await dispatch(addNewTodo({ content: todo })).unwrap(); // Unwrap only resolves the promise if there is no error
-    //   setTodo("");
-    // } catch (error: unknown) {
-    //   console.log("Error creating todo", error);
-    // } finally {
-    //   setAddTodoStatus("idle");
-    // }
+
+    try {
+      await addNewTodo({ content: todo }).unwrap();
+      setTodo("");
+    } catch (error: unknown) {
+      console.log("Error creating todo", error);
+    }
   };
 
   return (
@@ -51,6 +43,7 @@ export const Homepage = () => {
             width="75%"
             buttonText="add"
             onClick={createTodo}
+            disabled={isLoading}
           />
           <TodoList />
         </Container>
